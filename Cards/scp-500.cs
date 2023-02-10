@@ -34,7 +34,6 @@ namespace KFC.Cards
 
 namespace KFC.MonoBehaviors
 {
-    [DisallowMultipleComponent]
     public class scp_500_Mono : CardEffect
     {
 

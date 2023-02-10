@@ -33,7 +33,6 @@ namespace KFC.Cards
 
 namespace KFC.MonoBehaviors
 {
-    [DisallowMultipleComponent]
     public class blackholegun_Mono : CardEffect
     {
 

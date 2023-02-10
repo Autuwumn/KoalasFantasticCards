@@ -69,7 +69,6 @@ namespace KFC.Cards
 }
 namespace KFC.MonoBehaviors
 {
-    [DisallowMultipleComponent]
     public class splinter_Mono : CardEffect
     {
         

@@ -24,7 +24,8 @@ namespace KFC.Cards
             ModName = KFC.ModInitials,
             Art = KFC.ArtAssets.LoadAsset<GameObject>("C_Excaliber"),
             Rarity = RarityUtils.GetRarity("Divine"),
-            Theme = CardThemeColor.CardThemeColorType.DestructiveRed
+            Theme = CardThemeColor.CardThemeColorType.DestructiveRed,
+            OwnerOnly=true
         };
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
@@ -33,16 +34,11 @@ namespace KFC.Cards
             //gun.projectileColor = Color.clear;
 
         }
-        protected override void Added(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
-        {
-            
-        }
     }
 }
 
 namespace KFC.MonoBehaviors
 {
-    [DisallowMultipleComponent]
     public class excaliber_Mono : CardEffect
     {
         public ExcaliberSword_Mono excaliberSword;
@@ -54,7 +50,7 @@ namespace KFC.MonoBehaviors
                 render.enabled = false;
             }
             var escaber = PhotonNetwork.Instantiate("KFC_Excaliber", data.hand.transform.position, Quaternion.identity);
-            DontDestroyOnLoad(escaber);
+            //DontDestroyOnLoad(escaber);
             excaliberSword = escaber.AddComponent<ExcaliberSword_Mono>();
             excaliberSword.player = player;
             gun.transform.GetComponentInChildren<Canvas>().gameObject.AddComponent<CanvasGroup>().alpha = 0f;

@@ -30,7 +30,6 @@ namespace KFC.Cards
 
 namespace KFC.MonoBehaviors
 {
-    [DisallowMultipleComponent]
     public class legos_Mono : CardEffect
     {
         public override void OnBulletHit(GameObject projectile, HitInfo hit)
