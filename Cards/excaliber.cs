@@ -32,7 +32,6 @@ namespace KFC.Cards
             cardInfo.allowMultiple = false;
             gun.attackSpeed = 999999f;
             //gun.projectileColor = Color.clear;
-
         }
     }
 }

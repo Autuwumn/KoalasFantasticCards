@@ -26,7 +26,8 @@ namespace KFC.Cards
             ModName     = KFC.ModInitials,
             Art         = KFC.ArtAssets.LoadAsset<GameObject>("C_IndiaJoenas"),
             Rarity      = RarityUtils.GetRarity("Epic"),
-            Theme       = CardThemeColor.CardThemeColorType.EvilPurple
+            Theme       = CardThemeColor.CardThemeColorType.EvilPurple,
+            OwnerOnly = true
         };
         
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)

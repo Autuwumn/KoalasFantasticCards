@@ -19,7 +19,8 @@ namespace KFC.Cards
             ModName = KFC.ModInitials,
             Art = KFC.ArtAssets.LoadAsset<GameObject>("C_Legos"),
             Rarity = RarityUtils.GetRarity("Legendary"),
-            Theme = CardThemeColor.CardThemeColorType.FirepowerYellow
+            Theme = CardThemeColor.CardThemeColorType.FirepowerYellow,
+            OwnerOnly = true
         };
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
@@ -35,10 +36,8 @@ namespace KFC.MonoBehaviors
         public override void OnBulletHit(GameObject projectile, HitInfo hit)
         {
             base.OnBulletHit(projectile, hit);
-            var other = hit.rigidbody.gameObject;
-            if (other.name == "Bullet_Base(Clone)") return;
             var lego = PhotonNetwork.Instantiate("KFC_LegoBrick", projectile.transform.position, Quaternion.identity);
-            lego.GetComponent<DamageBox>().damage = gun.damage*27.5f;
+            lego.gameObject.GetComponent<DamageBox>().damage = 5.1f*gun.damage;
         }
     }
 }
