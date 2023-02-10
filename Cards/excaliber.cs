@@ -54,6 +54,7 @@ namespace KFC.MonoBehaviors
                 render.enabled = false;
             }
             var escaber = PhotonNetwork.Instantiate("KFC_Excaliber", data.hand.transform.position, Quaternion.identity);
+            DontDestroyOnLoad(escaber);
             excaliberSword = escaber.AddComponent<ExcaliberSword_Mono>();
             excaliberSword.player = player;
             gun.transform.GetComponentInChildren<Canvas>().gameObject.AddComponent<CanvasGroup>().alpha = 0f;
