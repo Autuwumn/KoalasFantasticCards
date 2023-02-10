@@ -37,7 +37,7 @@ namespace KFC.MonoBehaviors
         {
             base.OnBulletHit(projectile, hit);
             var lego = PhotonNetwork.Instantiate("KFC_LegoBrick", projectile.transform.position, Quaternion.identity);
-            lego.gameObject.GetComponent<DamageBox>().damage = 5.1f*gun.damage;
+            lego.gameObject.GetComponent<DamageBox>().damage = gun.damage;
         }
     }
 }

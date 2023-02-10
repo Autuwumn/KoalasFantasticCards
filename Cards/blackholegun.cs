@@ -45,30 +45,34 @@ namespace KFC.MonoBehaviors
             var bhole = PhotonNetwork.Instantiate("KFC_BlackHole", data.hand.transform.position, Quaternion.identity);
             bhole.AddComponent<blackHole_Mono>();
             bhole.GetComponent<Rigidbody2D>().velocity = projectile.GetComponent<Rigidbody2D>().velocity*5;
+            bhole.GetComponent<blackHole_Mono>().projec = projectile;
         }
     }
     public class blackHole_Mono : MonoBehaviour
     {
         private float size;
+        public GameObject projec;
         public void Start()
         {
             size = 0.5f;
-
         }
         public void Update()
         {
             size += TimeHandler.deltaTime / 10f;
             gameObject.transform.GetChild(0).transform.localScale = new Vector3(size, size, size);
             List<Player> players = PlayerManager.instance.players;
-            foreach(var ployer in players)
+            foreach (var ployer in players)
             {
                 var dist = Vector2.Distance(ployer.transform.position, gameObject.transform.position);
-                if (dist < size * 2f)
+                if (dist < size * 3f)
                 {
                     Vector2 velo = (Vector2)ployer.data.playerVel.GetFieldValue("velocity");
-                    Vector2 vecto = (gameObject.transform.position.normalized-ployer.transform.position.normalized)*size;
+                    Vector2 vecto = (ployer.transform.position.normalized - gameObject.transform.position.normalized);
+                    UnityEngine.Debug.Log(velo + "," + vecto);
+                    vecto *= size * 10f;
                     velo -= vecto;
                     UnityEngine.Debug.Log(ployer.data.playerVel.GetFieldValue("velocity") + "," + velo + "," + vecto);
+                    ployer.data.playerVel.SetFieldValue("velocity", velo);
                 }
             }
         }
