@@ -36,6 +36,8 @@ namespace KFC.MonoBehaviors
         public override void OnBulletHit(GameObject projectile, HitInfo hit)
         {
             base.OnBulletHit(projectile, hit);
+            var other = hit.rigidbody.gameObject;
+            if (other.name == "Bullet_Base(Clone)") return;
             var lego = PhotonNetwork.Instantiate("KFC_LegoBrick", projectile.transform.position, Quaternion.identity);
             lego.GetComponent<DamageBox>().damage = gun.damage*27.5f;
         }

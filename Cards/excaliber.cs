@@ -105,6 +105,7 @@ namespace KFC.MonoBehaviors
 
         private void Update()
         {
+            player.data.weaponHandler.gun.ammo = 0;
             rigid.position = player.data.hand.position;
             rigid.transform.up = player.data.aimDirection;
             damagebox.damage = player.data.weaponHandler.gun.damage*55f;
