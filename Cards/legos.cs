@@ -5,6 +5,7 @@ using ModsPlus;
 using UnboundLib;
 using KFC.MonoBehaviors;
 using KFC.Cards;
+using Photon.Pun;
 
 namespace KFC.Cards
 {
@@ -17,16 +18,12 @@ namespace KFC.Cards
             Description = "Everybody hates you",
             ModName = KFC.ModInitials,
             Art = KFC.ArtAssets.LoadAsset<GameObject>("C_Legos"),
-            Rarity = RarityUtils.GetRarity("Mythical"),
-            Theme = CardThemeColor.CardThemeColorType.TechWhite
+            Rarity = RarityUtils.GetRarity("Legendary"),
+            Theme = CardThemeColor.CardThemeColorType.FirepowerYellow
         };
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
             cardInfo.allowMultiple = false;
-            statModifiers.health = 1.1f;
-        }
-        protected override void Added(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
-        {
         }
     }
 }
@@ -36,6 +33,11 @@ namespace KFC.MonoBehaviors
     [DisallowMultipleComponent]
     public class legos_Mono : CardEffect
     {
-
+        public override void OnBulletHit(GameObject projectile, HitInfo hit)
+        {
+            base.OnBulletHit(projectile, hit);
+            var lego = PhotonNetwork.Instantiate("KFC_LegoBrick", projectile.transform.position, Quaternion.identity);
+            lego.GetComponent<DamageBox>().damage = gun.damage*27.5f;
+        }
     }
 }

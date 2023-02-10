@@ -24,11 +24,12 @@ namespace KFC.Cards
         {
             cardInfo.allowMultiple = false;
             var betterSprite = KFC.ArtAssets.LoadAsset<GameObject>("Uwullet");
+            var sprite = betterSprite.transform.Find("Sprite").gameObject;
             gun.objectsToSpawn = new[]
             {
                 new ObjectsToSpawn()
                 {
-                    AddToProjectile = betterSprite
+                    AddToProjectile = sprite
                 },
             };
         }

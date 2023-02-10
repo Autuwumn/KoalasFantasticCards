@@ -4,6 +4,9 @@ using RarityLib.Utils;
 using ModsPlus; 
 using UnboundLib;
 using KFC.MonoBehaviors;
+using Photon.Pun;
+using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 namespace KFC.Cards
 {
@@ -56,7 +59,6 @@ namespace KFC.Cards
             gun.damage = 10f;
             gun.projectileSpeed = 10f;
             gun.unblockable = true;
-            gun.ignoreWalls = true;
         }
         protected override void Added(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
@@ -70,6 +72,6 @@ namespace KFC.MonoBehaviors
     [DisallowMultipleComponent]
     public class splinter_Mono : CardEffect
     {
-
+        
     }
 }

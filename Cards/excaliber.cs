@@ -107,7 +107,7 @@ namespace KFC.MonoBehaviors
             rigid.position = player.data.hand.position;
             rigid.transform.up = player.data.aimDirection;
             damagebox.damage = player.data.weaponHandler.gun.damage*55f;
-            damagebox.force = 1000f;
+            damagebox.force = player.data.weaponHandler.gun.projectileSpeed * 1000f;
         }
     }
 }
