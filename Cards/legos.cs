@@ -40,7 +40,10 @@ namespace KFC.MonoBehaviors
             var lego = PhotonNetwork.Instantiate("KFC_LegoBrick", projectile.transform.position, Quaternion.identity);
             //lego.RPC("RPCA_ChangeSprite", lego.gameObject);
             lego.gameObject.GetComponent<DamageBox>().damage = gun.damage * 5;
-
+            KFC.instance.ExecuteAfterSeconds(10f, () =>
+            {
+                PhotonNetwork.Destroy(lego);
+            });
         }
         [PunRPC]
         private void RPCA_ChangeSprite()
