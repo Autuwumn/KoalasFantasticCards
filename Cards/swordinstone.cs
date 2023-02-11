@@ -10,6 +10,7 @@ namespace KFC.Cards
     public class swordinstone : SimpleCard
     {
         internal static CardInfo card = null;
+        private bool usedUp = false;
         public override CardDetails Details => new CardDetails
         {
             Title = "Sword in the stone",
@@ -22,18 +23,24 @@ namespace KFC.Cards
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
             cardInfo.allowMultiple = false;
-
         }
         protected override void Added(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
             if (!player.data.view.IsMine) return;
+            if (usedUp) return;
             KFC.instance.ExecuteAfterFrames(20, () =>
             {
+                usedUp = true;
                 var rng = UnityEngine.Random.Range(0, 2);
                 if (rng == 1)
                 {
                     CardInfo[] cardsToAdd = new CardInfo[1];
                     cardsToAdd[0] = excaliber.card;
+                    ModdingUtils.Utils.Cards.instance.AddCardsToPlayer(player, cardsToAdd, false, null, null, null, true);
+                } else
+                {
+                    CardInfo[] cardsToAdd = new CardInfo[1];
+                    cardsToAdd[0] = failure.card;
                     ModdingUtils.Utils.Cards.instance.AddCardsToPlayer(player, cardsToAdd, false, null, null, null, true);
                 }
             });

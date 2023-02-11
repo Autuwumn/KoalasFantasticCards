@@ -49,7 +49,7 @@ namespace KFC.MonoBehaviors
             var dist = 5;
             var ballPos = pt.transform.position-aimVector.normalized*dist;
             var betterBall = PhotonNetwork.Instantiate("KFC_Boulder", ballPos, Quaternion.identity);
-            betterBall.GetComponent<Rigidbody2D>().velocity = aimVector*50;
+            betterBall.GetComponent<Rigidbody2D>().velocity = aimVector*200f;
             KFC.instance.ExecuteAfterSeconds(10f, () =>
             {
                 PhotonNetwork.Destroy(betterBall);

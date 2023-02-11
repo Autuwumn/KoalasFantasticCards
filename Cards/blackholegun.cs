@@ -58,20 +58,19 @@ namespace KFC.MonoBehaviors
         }
         public void Update()
         {
-            size += TimeHandler.deltaTime / 10f;
-            gameObject.transform.GetChild(0).transform.localScale = new Vector3(size, size, size);
+            size += TimeHandler.deltaTime / 20f;
+            gameObject.transform.GetChild(1).transform.localScale = new Vector3(size, size, size);
+            gameObject.GetComponent<DamageBox>().damage = size*5f;
             List<Player> players = PlayerManager.instance.players;
             foreach (var ployer in players)
             {
                 var dist = Vector2.Distance(ployer.transform.position, gameObject.transform.position);
-                if (dist < size * 3f)
+                if (dist < size * 1.5f)
                 {
                     Vector2 velo = (Vector2)ployer.data.playerVel.GetFieldValue("velocity");
-                    Vector2 vecto = (ployer.transform.position.normalized - gameObject.transform.position.normalized);
-                    UnityEngine.Debug.Log(velo + "," + vecto);
-                    vecto *= size * 10f;
+                    Vector2 vecto = (ployer.transform.position.normalized-gameObject.transform.position.normalized);
+                    vecto *= 200f;
                     velo -= vecto;
-                    UnityEngine.Debug.Log(ployer.data.playerVel.GetFieldValue("velocity") + "," + velo + "," + vecto);
                     ployer.data.playerVel.SetFieldValue("velocity", velo);
                 }
             }

@@ -1,7 +1,7 @@
 {
     "name": "KoalasFantasticCards",
-    "version_number": "1.0.1",
-    "website_url": "",
+    "version_number": "1.0.2",
+    "website_url": "https://github.com/Autuwumn/KoalasFantasticCards",
     "description": "A truly fantastic collection of cards",
     "dependencies": [
         "willis81808-UnboundLib-3.2.6",

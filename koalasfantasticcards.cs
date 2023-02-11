@@ -55,10 +55,11 @@ namespace KFC
             CustomCard.BuildCard<legos>((card) => { legos.card = card; card.SetAbbreviation("Le"); });
             //CustomCard.BuildCard<uwullets>((card) => { uwullets.card = card; card.SetAbbreviation("Uw"); });
             //CustomCard.BuildCard<scp_500>((card) => { scp_500.card = card; card.SetAbbreviation("S5"); });
-            CustomCard.BuildCard<blackholegun>((card) => { blackholegun.card = card; card.SetAbbreviation("Bh"); });
+            //CustomCard.BuildCard<blackholegun>((card) => { blackholegun.card = card; card.SetAbbreviation("Bh"); });
 
             CustomCard.BuildCard<swordinstone>((card) => { swordinstone.card = card; card.SetAbbreviation("Ss"); });
             CustomCard.BuildCard<excaliber>((card) => { excaliber.card = card; card.SetAbbreviation("Ex"); });
+            CustomCard.BuildCard<failure>((card) => { failure.card = card; card.SetAbbreviation("XX"); ModdingUtils.Utils.Cards.instance.AddHiddenCard(card);});
         }
         public static bool Debug = false;
     }

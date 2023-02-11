@@ -20,7 +20,7 @@ namespace KFC.Cards
         public override CardDetails Details => new CardDetails
         {
             Title = "Excaliber",
-            Description = "You did it, you are the king",
+            Description = "You are worthy",
             ModName = KFC.ModInitials,
             Art = KFC.ArtAssets.LoadAsset<GameObject>("C_Excaliber"),
             Rarity = RarityUtils.GetRarity("Divine"),
@@ -30,7 +30,7 @@ namespace KFC.Cards
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
             cardInfo.allowMultiple = false;
-            gun.attackSpeed = 999999f;
+            gun.attackSpeed = 99999f;
             //gun.projectileColor = Color.clear;
         }
     }
@@ -49,7 +49,6 @@ namespace KFC.MonoBehaviors
                 render.enabled = false;
             }
             var escaber = PhotonNetwork.Instantiate("KFC_Excaliber", data.hand.transform.position, Quaternion.identity);
-            //DontDestroyOnLoad(escaber);
             excaliberSword = escaber.AddComponent<ExcaliberSword_Mono>();
             excaliberSword.player = player;
             gun.transform.GetComponentInChildren<Canvas>().gameObject.AddComponent<CanvasGroup>().alpha = 0f;
@@ -61,7 +60,7 @@ namespace KFC.MonoBehaviors
             {
                 render.enabled = false;
             }
-            var polli = excaliberSword.gameObject.GetComponentInChildren<Collider2D>();
+            var polli = excaliberSword.gameObject.GetComponentInChildren<PolygonCollider2D>();
             foreach (var colli in player.GetComponentsInChildren<Collider2D>())
             {
                 Physics2D.IgnoreCollision(polli, colli);
