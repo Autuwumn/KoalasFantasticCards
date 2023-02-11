@@ -24,5 +24,9 @@ namespace KFC.Cards
             cardInfo.allowMultiple = false;
             statModifiers.health = 0.9f;
         }
+        public override bool GetEnabled()
+        {
+            return false;
+        }
     }
 }
