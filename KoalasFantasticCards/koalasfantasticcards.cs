@@ -22,7 +22,7 @@ namespace KFC
     {
         private const string ModId = "koala.koalas.fantastic.cards";
         private const string ModName = "Koalas Fantastic Cards";
-        public const string Version = "1.0.3";
+        public const string Version = "1.0.4";
         public const string ModInitials = "KFC";
 
         internal static KFC instance;
