@@ -6,14 +6,17 @@
   </PropertyGroup>
 	
 	<ItemGroup>
-	<None Remove="AssetsEmbedded\kfccards"/>
+		<None Remove="AssetsEmbedded\kfccards"/>
 	</ItemGroup>
 	<ItemGroup>
 		<EmbeddedResource Include="AssetsEmbedded\kfccards"/>
 	</ItemGroup>
 	
   <ItemGroup>
-	<Reference Include="ModsPlus">
+	  <Reference Include="UnityEngine.AudioModule">
+		  <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\ROUNDS\Rounds_Data\Managed\UnityEngine.AudioModule.dll</HintPath>
+	  </Reference>
+	  <Reference Include="ModsPlus">
 		  <HintPath>C:\Users\joshu\AppData\Roaming\r2modmanPlus-local\ROUNDS\profiles\Default\BepInEx\plugins\willis81808-ModsPlus\ModsPlus.dll</HintPath>
 	</Reference>
     <Reference Include="UnboundLib">

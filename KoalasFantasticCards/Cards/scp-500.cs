@@ -20,8 +20,8 @@ namespace KFC.Cards
             Description = "A true clensing",
             ModName = KFC.ModInitials,
             Art = KFC.ArtAssets.LoadAsset<GameObject>("C_SCP_500"),
-            Rarity = RarityUtils.GetRarity("Divine"),
-            Theme = CardThemeColor.CardThemeColorType.TechWhite
+            Rarity = RarityUtils.GetRarity("Mythical"),
+            Theme = CardThemeColor.CardThemeColorType.DestructiveRed
         };
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {

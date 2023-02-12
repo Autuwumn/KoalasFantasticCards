@@ -71,6 +71,10 @@ namespace KFC.MonoBehaviors
 {
     public class splinter_Mono : CardEffect
     {
-        
+        private void Update()
+        {
+            if(gunAmmo.reloadTime < 5) gunAmmo.reloadTime = 5;
+            if (gunAmmo.maxAmmo > 1) gunAmmo.maxAmmo = 1;
+        }
     }
 }
