@@ -10,7 +10,7 @@ using System;
 using System.Collections;
 using UnboundLib.GameModes;
 using UnityEngine.UI;
-
+using System.Xml.Schema;
 
 namespace KFC.Cards
 {
@@ -30,8 +30,6 @@ namespace KFC.Cards
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
             cardInfo.allowMultiple = false;
-            gun.attackSpeed = 99999f;
-            //gun.projectileColor = Color.clear;
         }
     }
 }
@@ -41,6 +39,8 @@ namespace KFC.MonoBehaviors
     public class excaliber_Mono : CardEffect
     {
         public ExcaliberSword_Mono excaliberSword;
+        private float swordShoot = 0f;
+        private CustomHealthBar swordCool;
         protected override void Start()
         {
             base.Start();
@@ -52,6 +52,9 @@ namespace KFC.MonoBehaviors
             excaliberSword = escaber.AddComponent<ExcaliberSword_Mono>();
             excaliberSword.player = player;
             gun.transform.GetComponentInChildren<Canvas>().gameObject.AddComponent<CanvasGroup>().alpha = 0f;
+            swordCool = excaliberSword.gameObject.transform.GetChild(2).gameObject.AddComponent<CustomHealthBar>();
+            swordCool.SetValues(swordShoot, gun.attackSpeed*5f / 0.3f);
+            swordCool.SetColor(Color.red);
             FixSword();
         }
         private void FixSword()
@@ -65,6 +68,20 @@ namespace KFC.MonoBehaviors
             {
                 Physics2D.IgnoreCollision(polli, colli);
             }
+        }
+        public override void OnShoot(GameObject projectile)
+        {
+            Destroy(projectile);
+            if (excaliberSword.boomer == false && swordShoot > gun.attackSpeed*5f/0.3f)
+            {
+                excaliberSword.StartBoomer();
+                swordShoot = 0f;
+            }
+        }
+        public void Update()
+        {
+            swordShoot += TimeHandler.deltaTime;
+            swordCool.SetValues(swordShoot, gun.attackSpeed*5f/0.3f);
         }
         public void OnEnable()
         {
@@ -90,18 +107,63 @@ namespace KFC.MonoBehaviors
         public Player player;
         private Rigidbody2D rigid;
         private DamageBox damagebox;
-        
+        public bool boomer = false;
+        private Vector2 swordLoc;
+        private Vector3 swordAim;
+        private Vector3 targetLoc;
+        private bool goOut = true;
+        private Vector3 playerRemember;
+
         private void Start()
         {
             rigid = gameObject.GetComponent<Rigidbody2D>();
             damagebox = gameObject.GetComponentInChildren<DamageBox>();
         }
-
+        public void StartBoomer()
+        {
+            boomer = true;
+            goOut = true;
+            targetLoc = player.data.hand.position+player.data.aimDirection.normalized*30f;
+            swordAim = player.data.aimDirection;
+            playerRemember = player.data.hand.position;
+        }
+        public Vector2 RotateVector(Vector2 v, float angle)
+        {
+            float radian = angle * Mathf.Deg2Rad;
+            float _x = v.x * Mathf.Cos(radian) - v.y * Mathf.Sin(radian);
+            float _y = v.x * Mathf.Sin(radian) + v.y * Mathf.Cos(radian);
+            return new Vector2(_x, _y);
+        }
         private void Update()
         {
+            if (!boomer)
+            {
+                swordLoc = player.data.hand.position;
+                swordAim = player.data.aimDirection;
+            }
+            if (boomer)
+            {
+                if(goOut)
+                {
+                    swordLoc = Vector2.MoveTowards(swordLoc, targetLoc,60*TimeHandler.deltaTime);
+                    if (Vector2.Distance(swordLoc,(Vector2)targetLoc) < 1) goOut = false;
+                    swordAim = RotateVector(swordLoc + Vector2.one, 25*TimeHandler.deltaTime);
+                    swordAim = player.data.aimDirection;
+                }
+                if(!goOut)
+                {
+                    swordLoc = Vector2.MoveTowards(swordLoc, player.data.hand.position,60*TimeHandler.deltaTime);
+                    if(Vector2.Distance(swordLoc,(Vector2)player.data.hand.position) < 1) boomer = false;
+                    swordAim = player.data.aimDirection;
+                }
+            }
             player.data.weaponHandler.gun.ammo = 0;
-            rigid.position = player.data.hand.position;
-            rigid.transform.up = player.data.aimDirection;
+            rigid.position = swordLoc;
+            rigid.transform.up = swordAim;
+            if(player.data.health <= 0)
+            {
+                rigid.position = new Vector2(1000, 1000);
+            }
             damagebox.damage = player.data.weaponHandler.gun.damage*55f;
             damagebox.force = player.data.weaponHandler.gun.projectileSpeed * 1000f;
         }

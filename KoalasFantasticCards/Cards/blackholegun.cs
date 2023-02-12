@@ -7,6 +7,7 @@ using KFC.MonoBehaviors;
 using KFC.Cards;
 using Photon.Pun;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace KFC.Cards
 {
@@ -43,35 +44,34 @@ namespace KFC.MonoBehaviors
         public override void OnShoot(GameObject projectile)
         {
             var bhole = PhotonNetwork.Instantiate("KFC_BlackHole", data.hand.transform.position, Quaternion.identity);
-            bhole.AddComponent<blackHole_Mono>();
-            bhole.GetComponent<Rigidbody2D>().velocity = projectile.GetComponent<Rigidbody2D>().velocity*5;
-            bhole.GetComponent<blackHole_Mono>().projec = projectile;
+            bhole.AddComponent<blackHole_Mono>().projec = projectile;
         }
     }
     public class blackHole_Mono : MonoBehaviour
     {
         private float size;
         public GameObject projec;
+
         public void Start()
         {
             size = 0.5f;
         }
         public void Update()
         {
-            size += TimeHandler.deltaTime / 20f;
+            if(projec == null) PhotonNetwork.Destroy(gameObject);
+            size += TimeHandler.deltaTime / 2f;
+            gameObject.transform.position = projec.transform.position;
             gameObject.transform.GetChild(1).transform.localScale = new Vector3(size, size, size);
             gameObject.GetComponent<DamageBox>().damage = size*5f;
-            List<Player> players = PlayerManager.instance.players;
+            List<Player> players = PlayerManager.instance.players.Where((pl) => pl.playerID != -3).ToList();
             foreach (var ployer in players)
             {
-                var dist = Vector2.Distance(ployer.transform.position, gameObject.transform.position);
+                var dist = Vector2.Distance((Vector2)ployer.transform.position, (Vector2)gameObject.transform.position);
                 if (dist < size * 1.5f)
                 {
                     Vector2 velo = (Vector2)ployer.data.playerVel.GetFieldValue("velocity");
-                    Vector2 vecto = (ployer.transform.position.normalized-gameObject.transform.position.normalized);
-                    vecto *= 200f;
-                    velo -= vecto;
-                    ployer.data.playerVel.SetFieldValue("velocity", velo);
+                    Vector2 vecto = Vector2.MoveTowards(velo, (Vector2)gameObject.transform.position, 60 * TimeHandler.deltaTime);
+                    ployer.data.playerVel.SetFieldValue("velocity", vecto);
                 }
             }
         }

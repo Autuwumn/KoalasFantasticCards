@@ -34,17 +34,23 @@ namespace KFC.MonoBehaviors
 {
     public class legos_Mono : CardEffect
     {
+        private int leegos = 0;
         public override void OnBulletHit(GameObject projectile, HitInfo hit)
         {
             base.OnBulletHit(projectile, hit);
-            var theLego = new[] { "KFC_LegoBrickR", "KFC_LegoBrickY", "KFC_LegoBrickB", "KFC_LegoBrickG"};
-            var brick = theLego[UnityEngine.Random.Range(0, theLego.Length)];
-            var lego = PhotonNetwork.Instantiate(brick, projectile.transform.position, Quaternion.identity);
-            lego.gameObject.GetComponent<DamageBox>().damage = gun.damage * 5;
-            KFC.instance.ExecuteAfterSeconds(10f, () =>
+            if (leegos < 100)
             {
-                PhotonNetwork.Destroy(lego);
-            });
+                leegos++;
+                var theLego = new[] { "KFC_LegoBrickR", "KFC_LegoBrickY", "KFC_LegoBrickB", "KFC_LegoBrickG" };
+                var brick = theLego[UnityEngine.Random.Range(0, theLego.Length)];
+                var lego = PhotonNetwork.Instantiate(brick, projectile.transform.position, Quaternion.identity);
+                lego.gameObject.GetComponent<DamageBox>().damage = gun.damage * 5;
+                KFC.instance.ExecuteAfterSeconds(30f, () =>
+                {
+                    leegos--;
+                    PhotonNetwork.Destroy(lego);
+                });
+            }
         }
     }
 }

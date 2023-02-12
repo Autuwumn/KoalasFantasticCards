@@ -13,6 +13,7 @@ using UnityEngine.SceneManagement;
 using System.Diagnostics;
 using System.Collections.Generic;
 using System.Linq;
+using ExitGames.Client.Photon;
 
 namespace KFC.Cards
 {
@@ -43,14 +44,8 @@ namespace KFC.MonoBehaviors
     {
         public void SpawnBall()
         {
-            List<Player> enemyPlayers = PlayerManager.instance.players.Where((pl) => pl.playerID != player.playerID && pl.teamID != player.teamID).ToList();
-            foreach(var pluyer in enemyPlayers)
-            {
-                if(player.data.health < 0)
-                {
-                    enemyPlayers.Remove(pluyer);
-                }
-            }
+            List<Player> enemyPlayers = PlayerManager.instance.players.Where((pl) => pl.playerID != player.playerID && pl.teamID != player.teamID && pl.data.health > 0).ToList();
+            if (enemyPlayers.Count == 0) return;
             Player pt = enemyPlayers[UnityEngine.Random.Range(0, enemyPlayers.Count)];
             var aimVector = pt.data.aimDirection.normalized;
             var dist = 5;
