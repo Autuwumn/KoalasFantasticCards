@@ -4,4 +4,4 @@
 
 
 ### 1.0
-- Added Sword in Stone, Excaliber, Rejection, Imbi, Legos
+- Added Sword in Stone, Excaliber, Rejection, Imbi, Legos, UwU, SCP-500

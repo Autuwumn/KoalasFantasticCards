@@ -9,3 +9,7 @@
 	- Blocking summons "The Rock" behind them, flying at them
 - A Bunch of Legos
 	- Bullets create random legos where they land
+- UwU
+	- Tee hee
+- SCP-500
+	- Removes some negative effects on cards you have
