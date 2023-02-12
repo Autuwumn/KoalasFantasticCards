@@ -10,6 +10,6 @@
 - A Bunch of Legos
 	- Bullets create random legos where they land
 - UwU
-	- Tee hee
+	- Check your logs ;)
 - SCP-500
 	- Removes some negative effects on cards you have
