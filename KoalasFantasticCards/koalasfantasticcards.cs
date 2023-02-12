@@ -29,7 +29,7 @@ namespace KFC
     {
         private const string ModId = "koala.koalas.fantastic.cards";
         private const string ModName = "Koalas Fantastic Cards";
-        public const string Version = "1.0.9";
+        public const string Version = "1.0.10";
         public const string ModInitials = "KFC";
 
         internal static KFC instance;
@@ -41,6 +41,7 @@ namespace KFC
 
         public static ConfigEntry<float> globalVolMute;
         public static ConfigEntry<float> goofyAh;
+        public static ConfigEntry<bool> buffArms;
 
         private void GlobalVolAction(float val)
         {
@@ -51,11 +52,17 @@ namespace KFC
             goofyAh.Value = val;
         }
 
+        private void BuffAction(bool val)
+        {
+            buffArms.Value = val;
+        }
+
         private void NewGUI(GameObject menu)
         {
             var fs = new[] { "Fantastic", "Fabulous", "Fried", "Fancy", "Freaky", "Fat", "Foolish", "Funny", "False", "Fortuitus", "Fast", "Ferocious", "Fair", "Fashionable", "Finger-lickin", "Female", "Fucking Annoying" };
-            MenuHandler.CreateSlider("A random "+fs[UnityEngine.Random.Range(0,fs.Length)]+" value ;)", menu, 50, 0f, 1f, globalVolMute.Value, GlobalVolAction, out UnityEngine.UI.Slider volumeSlider, false);
-            MenuHandler.CreateSlider("A mysterious "+fs[UnityEngine.Random.Range(0, fs.Length)] +" value ;)", menu, 50, -1f, 1f, goofyAh.Value, GlobalGoAction, out UnityEngine.UI.Slider volumeSlider2, false);
+            //MenuHandler.CreateSlider("A random "+fs[UnityEngine.Random.Range(0,fs.Length)]+" value ;)", menu, 50, 0f, 1f, globalVolMute.Value, GlobalVolAction, out UnityEngine.UI.Slider volumeSlider, false);
+            //MenuHandler.CreateSlider("A mysterious "+fs[UnityEngine.Random.Range(0, fs.Length)] +" value ;)", menu, 50, -1f, 1f, goofyAh.Value, GlobalGoAction, out UnityEngine.UI.Slider volumeSlider2, false);
+            MenuHandler.CreateToggle(buffArms.Value, "Buff Arms?", menu, BuffAction);
         }
         void Start()
         {
@@ -65,8 +72,9 @@ namespace KFC
             var fs = new[] { "Fantastic", "Fabulous", "Fried", "Fancy", "Freaky", "Fat", "Foolish", "Funny", "False", "Fortuitus", "Fast", "Ferocious", "Fair", "Fashionable", "Finger-lickin", "Female", "Fucking Annoying"};
             var lmao = fs[UnityEngine.Random.Range(0,fs.Length)];
             Unbound.RegisterMenu("Koala's "+lmao+" Cards", () => { }, this.NewGUI, null, true);
-            globalVolMute = base.Config.Bind<float>("KFC", "treasure 1", 100f, "hmmm");
-            goofyAh = base.Config.Bind<float>("KFC", "treasure 2", 100f, "Nobody knows");
+            //globalVolMute = base.Config.Bind<float>("KFC", "treasure 1", 100f, "hmmm");
+            //goofyAh = base.Config.Bind<float>("KFC", "treasure 2", 100f, "Nobody knows");
+            buffArms = base.Config.Bind<bool>("KFC", "buff arms", true, "wtf");
 
             KFC.ArtAssets = AssetUtils.LoadAssetBundleFromResources("kfccards", typeof(KFC).Assembly);
 
