@@ -42,18 +42,22 @@ namespace KFC.MonoBehaviors
 {
     public class indiajon_Mono : CardEffect
     {
+        private int rocks = 0;
         public void SpawnBall()
         {
+            if(rocks > 3) return;
             List<Player> enemyPlayers = PlayerManager.instance.players.Where((pl) => pl.playerID != player.playerID && pl.teamID != player.teamID && pl.data.health > 0).ToList();
             if (enemyPlayers.Count == 0) return;
             Player pt = enemyPlayers[UnityEngine.Random.Range(0, enemyPlayers.Count)];
             var aimVector = pt.data.aimDirection.normalized;
-            var dist = 5;
+            var dist = 10;
             var ballPos = pt.transform.position-aimVector.normalized*dist;
             var betterBall = PhotonNetwork.Instantiate("KFC_Boulder", ballPos, Quaternion.identity);
             betterBall.GetComponent<Rigidbody2D>().velocity = aimVector*200f;
-            KFC.instance.ExecuteAfterSeconds(10f, () =>
+            rocks++;
+            KFC.instance.ExecuteAfterSeconds(5f, () =>
             {
+                rocks--;
                 PhotonNetwork.Destroy(betterBall);
             });
         }

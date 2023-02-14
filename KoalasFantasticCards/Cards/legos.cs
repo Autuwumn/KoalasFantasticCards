@@ -19,7 +19,7 @@ namespace KFC.Cards
             Description = "Everybody hates you",
             ModName = KFC.ModInitials,
             Art = KFC.ArtAssets.LoadAsset<GameObject>("C_Legos"),
-            Rarity = RarityUtils.GetRarity("Rare"),
+            Rarity = RarityUtils.GetRarity("Legendary"),
             Theme = CardThemeColor.CardThemeColorType.FirepowerYellow,
             OwnerOnly = true
         };
@@ -38,14 +38,14 @@ namespace KFC.MonoBehaviors
         public override void OnBulletHit(GameObject projectile, HitInfo hit)
         {
             base.OnBulletHit(projectile, hit);
-            if (leegos < 100)
+            if (leegos < 10)
             {
                 leegos++;
                 var theLego = new[] { "KFC_LegoBrickR", "KFC_LegoBrickY", "KFC_LegoBrickB", "KFC_LegoBrickG" };
                 var brick = theLego[UnityEngine.Random.Range(0, theLego.Length)];
                 var lego = PhotonNetwork.Instantiate(brick, projectile.transform.position, Quaternion.identity);
                 lego.gameObject.GetComponent<DamageBox>().damage = gun.damage * 5;
-                KFC.instance.ExecuteAfterSeconds(30f, () =>
+                KFC.instance.ExecuteAfterSeconds(10f, () =>
                 {
                     leegos--;
                     PhotonNetwork.Destroy(lego);

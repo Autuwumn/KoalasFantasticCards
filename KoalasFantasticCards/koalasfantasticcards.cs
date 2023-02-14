@@ -29,7 +29,7 @@ namespace KFC
     {
         private const string ModId = "koala.koalas.fantastic.cards";
         private const string ModName = "Koalas Fantastic Cards";
-        public const string Version = "1.0.10";
+        public const string Version = "1.1.3";
         public const string ModInitials = "KFC";
 
         internal static KFC instance;
@@ -60,7 +60,7 @@ namespace KFC
         private void NewGUI(GameObject menu)
         {
             var fs = new[] { "Fantastic", "Fabulous", "Fried", "Fancy", "Freaky", "Fat", "Foolish", "Funny", "False", "Fortuitus", "Fast", "Ferocious", "Fair", "Fashionable", "Finger-lickin", "Female", "Fucking Annoying" };
-            //MenuHandler.CreateSlider("A random "+fs[UnityEngine.Random.Range(0,fs.Length)]+" value ;)", menu, 50, 0f, 1f, globalVolMute.Value, GlobalVolAction, out UnityEngine.UI.Slider volumeSlider, false);
+            MenuHandler.CreateSlider("Card Volume", menu, 50, 0f, 1f, globalVolMute.Value, GlobalVolAction, out UnityEngine.UI.Slider volumeSlider, false);
             //MenuHandler.CreateSlider("A mysterious "+fs[UnityEngine.Random.Range(0, fs.Length)] +" value ;)", menu, 50, -1f, 1f, goofyAh.Value, GlobalGoAction, out UnityEngine.UI.Slider volumeSlider2, false);
             MenuHandler.CreateToggle(buffArms.Value, "Buff Arms?", menu, BuffAction);
         }
@@ -72,7 +72,7 @@ namespace KFC
             var fs = new[] { "Fantastic", "Fabulous", "Fried", "Fancy", "Freaky", "Fat", "Foolish", "Funny", "False", "Fortuitus", "Fast", "Ferocious", "Fair", "Fashionable", "Finger-lickin", "Female", "Fucking Annoying"};
             var lmao = fs[UnityEngine.Random.Range(0,fs.Length)];
             Unbound.RegisterMenu("Koala's "+lmao+" Cards", () => { }, this.NewGUI, null, true);
-            //globalVolMute = base.Config.Bind<float>("KFC", "treasure 1", 100f, "hmmm");
+            globalVolMute = base.Config.Bind<float>("KFC", "card volume", 100f, "hmmm");
             //goofyAh = base.Config.Bind<float>("KFC", "treasure 2", 100f, "Nobody knows");
             buffArms = base.Config.Bind<bool>("KFC", "buff arms", true, "wtf");
 
@@ -89,10 +89,12 @@ namespace KFC
             PhotonNetwork.PrefabPool.RegisterPrefab("KFC_Excaliber", ArtAssets.LoadAsset<GameObject>("CrucibleSword"));
             PhotonNetwork.PrefabPool.RegisterPrefab("KFC_Boulder", ArtAssets.LoadAsset<GameObject>("Boulder"));
             PhotonNetwork.PrefabPool.RegisterPrefab("KFC_BlackHole", ArtAssets.LoadAsset<GameObject>("BlackHole"));
+            PhotonNetwork.PrefabPool.RegisterPrefab("KFC_Turret", ArtAssets.LoadAsset<GameObject>("Turret"));
+            PhotonNetwork.PrefabPool.RegisterPrefab("KFC_Buff", ArtAssets.LoadAsset<GameObject>("Buff"));
 
-            PhotonNetwork.PrefabPool.RegisterPrefab("KFC_UwU", ArtAssets.LoadAsset<GameObject>("Uwul"));
-            PhotonNetwork.PrefabPool.RegisterPrefab("KFC_UwU2", ArtAssets.LoadAsset<GameObject>("Uwul2"));
-            PhotonNetwork.PrefabPool.RegisterPrefab("KFC_UwU3", ArtAssets.LoadAsset<GameObject>("Uwul3"));
+            //PhotonNetwork.PrefabPool.RegisterPrefab("KFC_UwU", ArtAssets.LoadAsset<GameObject>("Uwul"));
+            //PhotonNetwork.PrefabPool.RegisterPrefab("KFC_UwU2", ArtAssets.LoadAsset<GameObject>("Uwul2"));
+            //PhotonNetwork.PrefabPool.RegisterPrefab("KFC_UwU3", ArtAssets.LoadAsset<GameObject>("Uwul3"));
 
             PhotonNetwork.PrefabPool.RegisterPrefab("KFC_LegoBrickR", ArtAssets.LoadAsset<GameObject>("legoBrickR"));
             PhotonNetwork.PrefabPool.RegisterPrefab("KFC_LegoBrickY", ArtAssets.LoadAsset<GameObject>("legoBrickY"));
@@ -102,10 +104,12 @@ namespace KFC
 
             //CustomCard.BuildCard<splinter>((card) => { splinter.card = card; card.SetAbbreviation("Sp"); });
             CustomCard.BuildCard<indiajoenas>((card) => { indiajoenas.card = card; card.SetAbbreviation("Ij"); });
+            //CustomCard.BuildCard<turret>((card) => { turret.card = card; card.SetAbbreviation("Tu"); });
             CustomCard.BuildCard<legos>((card) => { legos.card = card; card.SetAbbreviation("Le"); });
             CustomCard.BuildCard<uwullets>((card) => { uwullets.card = card; card.SetAbbreviation("Uw"); });
             CustomCard.BuildCard<scp_500>((card) => { scp_500.card = card; card.SetAbbreviation("S5"); });
-            //CustomCard.BuildCard<blackholegun>((card) => { blackholegun.card = card; card.SetAbbreviation("Bh"); });
+            CustomCard.BuildCard<doomSlayer>((card) => { doomSlayer.card = card; card.SetAbbreviation("DS"); });
+            CustomCard.BuildCard<blackholegun>((card) => { blackholegun.card = card; card.SetAbbreviation("Bh"); });
 
             CustomCard.BuildCard<swordinstone>((card) => { swordinstone.card = card; card.SetAbbreviation("Ss"); });
             CustomCard.BuildCard<excaliber>((card) => { excaliber.card = card; card.SetAbbreviation("Ex"); });

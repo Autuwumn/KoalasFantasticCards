@@ -1,4 +1,4 @@
-using System.Reflection;
+﻿using System.Reflection;
 using UnityEngine;
 using RarityLib.Utils;
 using ModsPlus;
@@ -7,12 +7,12 @@ using KFC.MonoBehaviors;
 
 namespace KFC.Cards
 {
-    public class failure : SimpleCard
+    public class maximumImpatience : SimpleCard
     {
         internal static CardInfo card = null;
         public override CardDetails Details => new CardDetails
         {
-            Title = "Rejection",
+            Title = "Genie",
             Description = "You are not worthy",
             ModName = KFC.ModInitials,
             Art = KFC.ArtAssets.LoadAsset<GameObject>("C_Failure"),

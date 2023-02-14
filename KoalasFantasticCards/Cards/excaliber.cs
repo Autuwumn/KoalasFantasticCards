@@ -19,13 +19,13 @@ namespace KFC.Cards
         internal static CardInfo card = null;
         public override CardDetails Details => new CardDetails
         {
-            Title = "Excaliber",
+            Title = "ExCrucible",
             Description = "You are worthy",
             ModName = KFC.ModInitials,
             Art = KFC.ArtAssets.LoadAsset<GameObject>("C_Excaliber"),
             Rarity = RarityUtils.GetRarity("Divine"),
             Theme = CardThemeColor.CardThemeColorType.DestructiveRed,
-            OwnerOnly=true
+            OwnerOnly = true
         };
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
@@ -145,14 +145,13 @@ namespace KFC.MonoBehaviors
             {
                 if(goOut)
                 {
-                    swordLoc = Vector2.MoveTowards(swordLoc, targetLoc,60*TimeHandler.deltaTime);
+                    swordLoc = Vector2.MoveTowards(swordLoc, targetLoc,60*TimeHandler.deltaTime*player.data.weaponHandler.gun.projectileSpeed);
                     if (Vector2.Distance(swordLoc,(Vector2)targetLoc) < 1) goOut = false;
-                    swordAim = RotateVector(swordLoc + Vector2.one, 25*TimeHandler.deltaTime);
                     swordAim = player.data.aimDirection;
                 }
                 if(!goOut)
                 {
-                    swordLoc = Vector2.MoveTowards(swordLoc, player.data.hand.position,60*TimeHandler.deltaTime);
+                    swordLoc = Vector2.MoveTowards(swordLoc, player.data.hand.position,60*TimeHandler.deltaTime*player.data.weaponHandler.gun.projectileSpeed);
                     if(Vector2.Distance(swordLoc,(Vector2)player.data.hand.position) < 1) boomer = false;
                     swordAim = player.data.aimDirection;
                 }

@@ -13,7 +13,7 @@ using UnityEngine;
 
 namespace KFC.Cards
 {
-    public class uwullets : CustomEffectCard<uwu_mono>
+    public class uwullets : SimpleCard
     {
         internal static CardInfo card = null;
         private static CardInfoStat stut = null;
@@ -47,8 +47,8 @@ namespace KFC.Cards
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
             cardInfo.allowMultiple = false;
-            gun.projectileColor = Color.clear;
             gun.damage = 1.25f;
+            gun.projectileColor = Color.magenta;
             if(KFC.globalVolMute.Value == 0.69f)
             {
                 stut = new CardInfoStat
@@ -85,7 +85,6 @@ namespace KFC.Cards
             gun.soundGun.soundShotModifierBasic.shotgun = uwuSound;
             gun.soundGun.soundShotModifierBasic.shotgunAutoLoop = uwuSound;
             gun.soundGun.soundShotModifierBasic.shotgunAutoTail = uwuSound;
-            if (!player.data.view.IsMine) return;
             KFC.instance.ExecuteAfterSeconds(1f, ()=>
             {
                 if (KFC.globalVolMute.Value == 0.69f)
@@ -93,13 +92,23 @@ namespace KFC.Cards
                     UnityEngine.Debug.Log("d/dx 2x^3 + 2x^2 + 2x is very mysterious");
                 }
             });
+            
         }
     }
 }
-namespace KFC.MonoBehaviors
+/**namespace KFC.MonoBehaviors
 {
     public class uwu_mono : CardEffect
     {
+        private SoundParameterIntensity soundParameterIntensity = new SoundParameterIntensity(0f, UpdateMode.Continuous);
+        private GameObject[] arms;
+        public void Start()
+        {
+            //arms[0] = PhotonNetwork.Instantiate("KFC_Buff", Vector3.zero, Quaternion.identity);
+            //arms[0].gameObject.AddComponent<Arm>().parental = player.transform.GetChild(3).transform.GetChild(1).transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).gameObject;
+            //arms[1] = PhotonNetwork.Instantiate("KFC_Buff", Vector3.zero, Quaternion.identity);
+            //arms[1].gameObject.AddComponent<Arm>().parental = player.transform.GetChild(3).transform.GetChild(1).transform.GetChild(1).transform.GetChild(0).transform.GetChild(0).gameObject;
+        }
         public override void OnShoot(GameObject projectile)
         {
             base.OnShoot(projectile);
@@ -107,6 +116,20 @@ namespace KFC.MonoBehaviors
             var owos = uwus[UnityEngine.Random.Range(0, uwus.Length)];
             var uwu = PhotonNetwork.Instantiate(owos, data.hand.transform.position, Quaternion.identity);
             uwu.gameObject.AddComponent<OwO>().parental = projectile;
+
+            /**
+            soundParameterIntensity.intensity = 0.5f;
+            SoundContainer soundContainer = ScriptableObject.CreateInstance<SoundContainer>();
+            soundContainer.setting.volumeIntensityEnable = true;
+            soundContainer.audioClip[0] = KFC.uwu;
+            SoundEvent uwuSound = ScriptableObject.CreateInstance<SoundEvent>();
+            uwuSound.soundContainerArray[0] = soundContainer;
+            soundParameterIntensity.intensity *= KFC.globalVolMute.Value*5f;
+            SoundManager.Instance.Play(uwuSound, base.transform, new SoundParameterBase[]
+            {
+                soundParameterIntensity
+            });
+            
         }
     }
     public class OwO : MonoBehaviour
@@ -120,4 +143,13 @@ namespace KFC.MonoBehaviors
             gameObject.transform.position = posatoin;
         }
     }
-}
+    public class Arm : MonoBehaviour
+    {
+        public GameObject parental;
+        private void Update()
+        {
+            var posatoin = parental.transform.position;
+            gameObject.transform.position = posatoin;
+        }
+    }
+}**/

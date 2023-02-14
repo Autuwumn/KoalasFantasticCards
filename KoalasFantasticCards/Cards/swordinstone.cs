@@ -26,20 +26,28 @@ namespace KFC.Cards
         }
         protected override void Added(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-            if (!player.data.view.IsMine) return;
+            var rng = UnityEngine.Random.Range(0, 2);
             if (usedUp) return;
-            KFC.instance.ExecuteAfterFrames(20, () =>
+            
+                KFC.instance.ExecuteAfterFrames(20, () =>
+                {
+                    if (rng == 1)
+                    {
+                        ModdingUtils.Utils.Cards.instance.AddCardToPlayer(player, excaliber.card, false, "Ex", 0, 0);
+                    }
+                    else
+                    {
+                        ModdingUtils.Utils.Cards.instance.AddCardToPlayer(player, failure.card, false, "Xx", 0, 0);
+                    }
+                });
+            
+            if(rng == 1)
             {
-                usedUp = true;
-                var rng = UnityEngine.Random.Range(0, 2);
-                if (rng == 1)
-                {
-                    ModdingUtils.Utils.Cards.instance.AddCardToPlayer(player, excaliber.card, false, "Ex", 0, 0);
-                } else
-                {
-                    ModdingUtils.Utils.Cards.instance.AddCardToPlayer(player, failure.card, false, "Xx", 0, 0);
-                }
-            });
+                ModdingUtils.Utils.CardBarUtils.instance.ShowImmediate(player, excaliber.card);
+            } else
+            {
+                ModdingUtils.Utils.CardBarUtils.instance.ShowImmediate(player, failure.card);
+            }
         }
     }
 }

@@ -47,6 +47,8 @@ namespace KFC.Cards
                 if (g.damage < 1) gun.damage /= g.damage;
                 if (g.projectileSpeed < 1) gun.projectileSpeed /= g.projectileSpeed;
                 if (h.movementSpeed < 1) characterStats.movementSpeed /= h.movementSpeed;
+                if (g.dmgMOnBounce < 1) gun.dmgMOnBounce /= g.dmgMOnBounce;
+                if (g.speedMOnBounce < 1) gun.speedMOnBounce /= g.speedMOnBounce;
             }
         }
     }
