@@ -13,6 +13,9 @@
 	</ItemGroup>
 	
   <ItemGroup>
+	  <Reference Include="PickTimer">
+	    <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ROUNDS\profiles\Default\BepInEx\plugins\otDan-PickTimer\PickTimer.dll</HintPath>
+	  </Reference>
 	  <Reference Include="Root_Cards">
 	    <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ROUNDS\profiles\Default\BepInEx\plugins\Root-Root_Cards\Root_Cards.dll</HintPath>
 	  </Reference>
@@ -103,9 +106,9 @@
 	<Reference Include="UnityEngine.UIModule">
 		<HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\ROUNDS\Rounds_Data\Managed\UnityEngine.UIModule.dll</HintPath>
 	</Reference>
-  </ItemGroup>
-  
-  <ItemGroup>
+	<Reference Include="WillsWackyManagers">
+	  <HintPath>..\..\..\AppData\Roaming\r2modmanPlus-local\ROUNDS\profiles\Default\BepInEx\plugins\willuwontu-WillsWackyManagers\WillsWackyManagers.dll</HintPath>
+	</Reference>
   </ItemGroup>
 
 </Project>  

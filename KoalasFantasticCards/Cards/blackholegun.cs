@@ -23,8 +23,7 @@ namespace KFC.Cards
             ModName = KFC.ModInitials,
             Art = KFC.ArtAssets.LoadAsset<GameObject>("C_Blackhole"),
             Rarity = RarityUtils.GetRarity("Mythical"),
-            Theme = CardThemeColor.CardThemeColorType.DestructiveRed,
-            OwnerOnly = true
+            Theme = CardThemeColor.CardThemeColorType.DestructiveRed
         };
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
@@ -76,6 +75,10 @@ namespace KFC.MonoBehaviors
             gameObject.transform.GetChild(0).transform.localScale = new Vector3(size / 3, size / 3, size / 3);
             gameObject.transform.GetChild(1).transform.localScale = new Vector3(size, size, size);
             gameObject.transform.GetComponentInChildren<DamageBox>().damage = size * 25f;
+            if (size < 1f)
+            {
+                gameObject.transform.GetComponentInChildren<DamageBox>().damage = 0f;
+            }
             List<Player> players = PlayerManager.instance.players;
             if (players.Count == 0) return;
             foreach (var ployer in players)

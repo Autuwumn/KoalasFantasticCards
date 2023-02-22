@@ -16,14 +16,13 @@ namespace KFC.Cards
     public class uwullets : SimpleCard
     {
         internal static CardInfo card = null;
-        private static CardInfoStat stut = null;
         public override CardDetails Details => new CardDetails
         {
             Title = "UwU",
             Description = "In need of a lumberjack are you?",
             ModName = KFC.ModInitials,
             Art = KFC.ArtAssets.LoadAsset<GameObject>("C_UwU"),
-            Rarity = RarityUtils.GetRarity("Common"),
+            Rarity = RarityUtils.GetRarity("Divine"),
             Theme = CardThemeColor.CardThemeColorType.MagicPink,
             Stats = new[]
             {
@@ -40,8 +39,7 @@ namespace KFC.Cards
                     positive = true,
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned,
                     stat = "Damage"
-                },
-                stut
+                }
             }
         };
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
@@ -49,50 +47,27 @@ namespace KFC.Cards
             cardInfo.allowMultiple = false;
             gun.damage = 1.25f;
             gun.projectileColor = Color.magenta;
-            if(KFC.globalVolMute.Value == 0.69f)
-            {
-                stut = new CardInfoStat
-                {
-                    amount = "<#FFFF00><i>Who put\nFind",
-                    positive = true,
-                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned,
-                    stat = "<#FFFF00><i>this here?\nthe clue"
-                };
-                if(KFC.goofyAh.Value == -0.25f)
-                {
-                    stut = new CardInfoStat
-                    {
-                        amount = "<#FF00FF>DM: Ancient_Koala#4486",
-                        positive = true,
-                        simepleAmount = CardInfoStat.SimpleAmount.notAssigned,
-                        stat = "<#FF00FF> the number you have"
-                    };
-                }
-            }
         }
         protected override void Added(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
             base.Added(player, gun, gunAmmo, data, health, gravity, block, characterStats);
-            
             SoundContainer soundContainer = ScriptableObject.CreateInstance<SoundContainer>();
             soundContainer.setting.volumeIntensityEnable = true;
             soundContainer.audioClip[0] = KFC.uwu;
             SoundEvent uwuSound = ScriptableObject.CreateInstance<SoundEvent>();
             uwuSound.soundContainerArray[0] = soundContainer;
+            SoundContainer sc2 = ScriptableObject.CreateInstance<SoundContainer>();
+            sc2.setting.volumeIntensityEnable = true;
+            sc2.audioClip[0] = KFC.owo;
+            SoundEvent owoSound = ScriptableObject.CreateInstance<SoundEvent>();
+            owoSound.soundContainerArray[0] = sc2;
             gun.soundGun.soundShotModifierBasic.single = uwuSound;
             gun.soundGun.soundShotModifierBasic.singleAutoLoop = uwuSound;
             gun.soundGun.soundShotModifierBasic.singleAutoTail = uwuSound;
-            gun.soundGun.soundShotModifierBasic.shotgun = uwuSound;
-            gun.soundGun.soundShotModifierBasic.shotgunAutoLoop = uwuSound;
-            gun.soundGun.soundShotModifierBasic.shotgunAutoTail = uwuSound;
-            KFC.instance.ExecuteAfterSeconds(1f, ()=>
-            {
-                if (KFC.globalVolMute.Value == 0.69f)
-                {
-                    UnityEngine.Debug.Log("d/dx 2x^3 + 2x^2 + 2x is very mysterious");
-                }
-            });
-            
+            gun.soundGun.soundShotModifierBasic.shotgun = owoSound;
+            gun.soundGun.soundShotModifierBasic.shotgunAutoLoop = owoSound;
+            gun.soundGun.soundShotModifierBasic.shotgunAutoTail = owoSound;
+            UnityEngine.Debug.Log("d/dx 2x^3 + 2x^2 + 2x is very mysterious");
         }
     }
 }

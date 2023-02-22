@@ -14,6 +14,9 @@ using System.Linq;
 using UnboundLib;
 using Sonigon.Internal;
 using Sonigon;
+using RarityLib.Utils;
+using System.Net.NetworkInformation;
+using Photon.Compression;
 
 namespace KFC
 {
@@ -29,59 +32,69 @@ namespace KFC
     {
         private const string ModId = "koala.koalas.fantastic.cards";
         private const string ModName = "Koalas Fantastic Cards";
-        public const string Version = "1.1.3";
+        public const string Version = "2.1.5";
         public const string ModInitials = "KFC";
 
         internal static KFC instance;
 
         public static AudioClip uwu;
+        public static AudioClip owo;
         public static int pogess = 0;
 
         internal static AssetBundle ArtAssets;
 
         public static ConfigEntry<float> globalVolMute;
-        public static ConfigEntry<float> goofyAh;
-        public static ConfigEntry<bool> buffArms;
+        public static ConfigEntry<string> goofyAh;
+        public static ConfigEntry<float> sliderChange;
 
         private void GlobalVolAction(float val)
         {
             globalVolMute.Value = val;
         }
-        private void GlobalGoAction(float val)
+        private void GoofyAction(string val)
         {
             goofyAh.Value = val;
         }
-
-        private void BuffAction(bool val)
+        private void SliderChangeAction(float val)
         {
-            buffArms.Value = val;
+            sliderChange.Value = val;
         }
 
         private void NewGUI(GameObject menu)
         {
             var fs = new[] { "Fantastic", "Fabulous", "Fried", "Fancy", "Freaky", "Fat", "Foolish", "Funny", "False", "Fortuitus", "Fast", "Ferocious", "Fair", "Fashionable", "Finger-lickin", "Female", "Fucking Annoying" };
-            MenuHandler.CreateSlider("Card Volume", menu, 50, 0f, 1f, globalVolMute.Value, GlobalVolAction, out UnityEngine.UI.Slider volumeSlider, false);
-            //MenuHandler.CreateSlider("A mysterious "+fs[UnityEngine.Random.Range(0, fs.Length)] +" value ;)", menu, 50, -1f, 1f, goofyAh.Value, GlobalGoAction, out UnityEngine.UI.Slider volumeSlider2, false);
-            MenuHandler.CreateToggle(buffArms.Value, "Buff Arms?", menu, BuffAction);
+            MenuHandler.CreateSlider("Funny Number", menu, 50, -10f, 10f, globalVolMute.Value, GlobalVolAction, out UnityEngine.UI.Slider volumeSlider, false);
+            //MenuHandler.CreateInputField("I like salads", 50, menu, GoofyAction);
+            MenuHandler.CreateSlider("Salad", menu, 50, 1, 26, sliderChange.Value, SliderChangeAction, out UnityEngine.UI.Slider sluder, true);
+            
+        }
+        public static bool hasCard(CardInfo card, Player player)
+        {
+            foreach(var cord in player.data.currentCards)
+            {
+                if (cord.name == card.name) return true;
+            }
+            return false;
         }
         void Start()
         {
             var harmony = new Harmony(ModId);
             harmony.PatchAll();
             instance = this;
-            var fs = new[] { "Fantastic", "Fabulous", "Fried", "Fancy", "Freaky", "Fat", "Foolish", "Funny", "False", "Fortuitus", "Fast", "Ferocious", "Fair", "Fashionable", "Finger-lickin", "Female", "Fucking Annoying"};
-            var lmao = fs[UnityEngine.Random.Range(0,fs.Length)];
-            Unbound.RegisterMenu("Koala's "+lmao+" Cards", () => { }, this.NewGUI, null, true);
+            var fs = new[] { "Fantastic", "Fabulous", "Fried", "Fancy", "Freaky", "Fat", "Foolish", "Funny", "False", "Fortuitus", "Fast", "Ferocious", "Fair", "Fashionable", "Finger-lickin", "Female", "Fucking Annoying" };
+            var lmao = fs[UnityEngine.Random.Range(0, fs.Length)];
+            Unbound.RegisterMenu("Koala's " + lmao + " Cards", () => { }, this.NewGUI, null, true);
             globalVolMute = base.Config.Bind<float>("KFC", "card volume", 100f, "hmmm");
-            //goofyAh = base.Config.Bind<float>("KFC", "treasure 2", 100f, "Nobody knows");
-            buffArms = base.Config.Bind<bool>("KFC", "buff arms", true, "wtf");
+            //goofyAh = base.Config.Bind<string>("KFC", "ceaser", "I like salads", "hmmm");
+            sliderChange = base.Config.Bind<float>("KFC", "Ceaser", 1f, "hmmm");
 
             KFC.ArtAssets = AssetUtils.LoadAssetBundleFromResources("kfccards", typeof(KFC).Assembly);
 
 
-            
+
             uwu = ArtAssets.LoadAsset<AudioClip>("uwu");
-            
+            owo = ArtAssets.LoadAsset<AudioClip>("owo");
+
             if (KFC.ArtAssets == null)
             {
                 UnityEngine.Debug.Log("Chad Vanilla art asset bundle either doesn't exist or failed to load.");
@@ -104,16 +117,30 @@ namespace KFC
 
             //CustomCard.BuildCard<splinter>((card) => { splinter.card = card; card.SetAbbreviation("Sp"); });
             CustomCard.BuildCard<indiajoenas>((card) => { indiajoenas.card = card; card.SetAbbreviation("Ij"); });
+            CustomCard.BuildCard<Alyssa>((card) => { Alyssa.card = card; });
             //CustomCard.BuildCard<turret>((card) => { turret.card = card; card.SetAbbreviation("Tu"); });
             CustomCard.BuildCard<legos>((card) => { legos.card = card; card.SetAbbreviation("Le"); });
             CustomCard.BuildCard<uwullets>((card) => { uwullets.card = card; card.SetAbbreviation("Uw"); });
             CustomCard.BuildCard<scp_500>((card) => { scp_500.card = card; card.SetAbbreviation("S5"); });
             CustomCard.BuildCard<doomSlayer>((card) => { doomSlayer.card = card; card.SetAbbreviation("DS"); });
             CustomCard.BuildCard<blackholegun>((card) => { blackholegun.card = card; card.SetAbbreviation("Bh"); });
+            //CustomCard.BuildCard<RedHerring>((card) => { RedHerring.card = card; card.SetAbbreviation("Rh"); });
 
             CustomCard.BuildCard<swordinstone>((card) => { swordinstone.card = card; card.SetAbbreviation("Ss"); });
             CustomCard.BuildCard<excaliber>((card) => { excaliber.card = card; card.SetAbbreviation("Ex"); });
-            CustomCard.BuildCard<failure>((card) => { ModdingUtils.Utils.Cards.instance.AddHiddenCard(card); failure.card = card; card.SetAbbreviation("XX");});
+            CustomCard.BuildCard<failure>((card) => { ModdingUtils.Utils.Cards.instance.AddHiddenCard(card); failure.card = card; card.SetAbbreviation("XX"); });
+
+            CustomCard.BuildCard<RiftWalker>((card) => { RiftWalker.card = card; card.SetAbbreviation("Rw"); });
+            CustomCard.BuildCard<RiftGun>((card) => { RiftGun.card = card; card.SetAbbreviation("Rh"); });
+            CustomCard.BuildCard<RiftBody>((card) => { RiftBody.card = card; card.SetAbbreviation("Rb"); });
+            CustomCard.BuildCard<RiftMind>((card) => { RiftMind.card = card; card.SetAbbreviation("Rm"); });
+            CustomCard.BuildCard<RiftSoul>((card) => { ModdingUtils.Utils.Cards.instance.AddHiddenCard(card); RiftSoul.card = card; card.SetAbbreviation("Rs"); });
+            CustomCard.BuildCard<Rifted>((card) => { ModdingUtils.Utils.Cards.instance.AddHiddenCard(card); Rifted.card = card; });
+
+            CustomCard.BuildCard<ViruzCard>((card) => { ViruzCard.card = card; });
+            CustomCard.BuildCard<Ard>((card) => { Ard.card = card; });
+            CustomCard.BuildCard<Bard>((card) => { Bard.card = card; });
+            CustomCard.BuildCard<Ccard>((card) => { Ccard.card = card; });
         }
         public static bool Debug = false;
     }
