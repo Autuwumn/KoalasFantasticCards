@@ -13,3 +13,6 @@
 	- Check your logs ;)
 - SCP-500
 	- Removes some negative effects on cards you have
+
+
+- Myterious Rift Walker Class
