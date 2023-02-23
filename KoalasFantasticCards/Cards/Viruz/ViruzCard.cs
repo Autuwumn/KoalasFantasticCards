@@ -74,6 +74,24 @@ namespace KFC.MonoBehaviors
         {
             t++;
             t++;
+            a = 1;
+            b = 1;
+            c = 1;
+            foreach(var card in player.data.currentCards)
+            {
+                if(card.name.ToLower() == "a++;")
+                {
+                    a++;
+                }
+                if(card.name.ToLower() == "b++;")
+                {
+                    b++;
+                }
+                if(card.name.ToLower() == "c++;")
+                {
+                    c++;
+                }
+            }
             var mult = (((float)(a * Math.Pow(t, 1.15 / 1.1) - (3 * Math.Pow(t, 1.2) / 6 * b) + c * t) / (100 / c)/6))+1;
             if(mult < 0.2f)
             {

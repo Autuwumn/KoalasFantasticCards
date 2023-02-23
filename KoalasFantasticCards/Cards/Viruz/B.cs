@@ -32,13 +32,5 @@ namespace KFC.Cards
                 }
             }
         };
-        protected override void Added(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
-        {
-            player.GetComponent<FuckMe>().b++;
-        }
-        protected override void Removed(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
-        {
-            player.GetComponent<FuckMe>().b--;
-        }
     }
 }
