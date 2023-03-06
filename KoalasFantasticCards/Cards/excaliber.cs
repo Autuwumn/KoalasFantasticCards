@@ -11,6 +11,8 @@ using System.Collections;
 using UnboundLib.GameModes;
 using UnityEngine.UI;
 using System.Xml.Schema;
+using UnboundLib.Networking;
+using System.Linq;
 
 namespace KFC.Cards
 {
@@ -49,13 +51,19 @@ namespace KFC.MonoBehaviors
                 render.enabled = false;
             }
             var escaber = PhotonNetwork.Instantiate("KFC_Excaliber", data.hand.transform.position, Quaternion.identity);
-            excaliberSword = escaber.AddComponent<ExcaliberSword_Mono>();
-            excaliberSword.player = player;
+            NetworkingManager.RPC(typeof(excaliber_Mono), nameof(RPCSword), escaber.name, player.playerID);
+            excaliberSword = escaber.GetComponent<ExcaliberSword_Mono>();
             gun.transform.GetComponentInChildren<Canvas>().gameObject.AddComponent<CanvasGroup>().alpha = 0f;
             swordCool = excaliberSword.gameObject.transform.GetChild(2).gameObject.AddComponent<CustomHealthBar>();
-            swordCool.SetValues(swordShoot, gun.attackSpeed*5f / 0.3f);
+            swordCool.SetValues(swordShoot, gun.attackSpeed * 5f / 0.3f);
             swordCool.SetColor(Color.red);
             FixSword();
+        }
+
+        [UnboundRPC]
+        public static void RPCSword(string swordName, int playerid)
+        {
+            UnityEngine.GameObject.Find(swordName).AddComponent<ExcaliberSword_Mono>().player = PlayerManager.instance.players.Where((p) => p.playerID == playerid).ToArray()[0];
         }
         private void FixSword()
         {
@@ -112,7 +120,6 @@ namespace KFC.MonoBehaviors
         private Vector3 swordAim;
         private Vector3 targetLoc;
         private bool goOut = true;
-        private Vector3 playerRemember;
 
         private void Start()
         {
@@ -125,7 +132,6 @@ namespace KFC.MonoBehaviors
             goOut = true;
             targetLoc = player.data.hand.position+player.data.aimDirection.normalized*30f;
             swordAim = player.data.aimDirection;
-            playerRemember = player.data.hand.position;
         }
         public Vector2 RotateVector(Vector2 v, float angle)
         {

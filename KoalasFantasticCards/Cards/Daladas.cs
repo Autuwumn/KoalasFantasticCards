@@ -20,7 +20,7 @@ namespace KFC.Cards
             Title = "A bunch of legos",
             Description = "Everybody hates you",
             ModName = KFC.ModInitials,
-            Art = KFC.ArtAssets.LoadAsset<GameObject>("C_Legos"),
+            Art = KFC.ArtAssets.LoadAsset<GameObject>("C_DalaDas"),
             Rarity = RarityUtils.GetRarity("Legendary"),
             Theme = CardThemeColor.CardThemeColorType.FirepowerYellow,
             OwnerOnly = true
@@ -38,7 +38,6 @@ namespace KFC.MonoBehaviors
     {
         public override IEnumerator OnPointStart(IGameModeHandler gameModeHandler)
         {
-            
             yield break;
         }
     }

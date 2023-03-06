@@ -26,7 +26,7 @@ namespace KFC.Cards
         {
             Title = "Soul of the Rift",
             Description = "Power at a cost",
-            ModName = "RIFT",
+            ModName = KFC.ModInitials,
             Art = KFC.ArtAssets.LoadAsset<GameObject>("C_RiftSoul"),
             Rarity = RarityUtils.GetRarity("Legendary"),
             Theme = CardThemeColor.CardThemeColorType.EvilPurple
@@ -49,15 +49,23 @@ namespace KFC.RiftShenanigans
 {
     public class RiftSoulMono : CardEffect
     {
-        private bool isRift(CardInfo card)
-        {
-            if (card.name == RiftWalker.card.name || card.name == RiftGun.card.name || card.name == RiftBody.card.name || card.name == RiftMind.card.name || card.name == RiftSoul.card.name || card.name == Rifted.card.name) return true;
-            return false;
-        }
         public override IEnumerator OnPointStart(IGameModeHandler gameModeHandler)
         {
-            ModdingUtils.Utils.Cards.instance.AddCardToPlayer(player, Rifted.card, false, "__", 0, 0);
-            ModdingUtils.Utils.CardBarUtils.instance.ShowImmediate(player, Rifted.card);
+            KFC.instance.ExecuteAfterFrames(20, () =>
+            {
+                ModdingUtils.Utils.Cards.instance.AddCardToPlayer(player, Rifted.card, false, "__", 0, 0);
+                ModdingUtils.Utils.CardBarUtils.instance.ShowImmediate(player, Rifted.card);
+                gun.damage *= 0.99f;
+                gun.dmgMOnBounce *= 0.99f;
+                gun.speedMOnBounce *= 0.99f;
+                gun.spread += 0.01f;
+                gun.projectileSpeed *= 0.99f;
+                characterStats.movementSpeed *= 0.99f;
+                characterStats.health *= 0.99f;
+                gun.reloadTime *= 1.01f;
+                gun.attackSpeed *= 1.01f;
+                gun.reloadTimeAdd += 0.05f;
+            }); 
             yield break;
         }
     }

@@ -23,7 +23,7 @@ namespace KFC.Cards
         {
             Title = "Rift Walker",
             Description = "Begin your path hunting through the void",
-            ModName = "RIFT",
+            ModName = KFC.ModInitials,
             Art = KFC.ArtAssets.LoadAsset<GameObject>("C_RiftWalker"),
             Rarity = RarityUtils.GetRarity("Legendary"),
             Theme = CardThemeColor.CardThemeColorType.EvilPurple,

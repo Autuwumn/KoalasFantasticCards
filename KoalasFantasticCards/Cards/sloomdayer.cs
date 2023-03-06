@@ -16,29 +16,19 @@ namespace KFC.Cards
         public override CardDetails Details => new CardDetails
         {
             Title = "Doom Slayer",
-            Description = "Got Damn",
+            Description = "<#8B0000><b>Rip and Tear",
             ModName = KFC.ModInitials,
             Art = KFC.ArtAssets.LoadAsset<GameObject>("C_DoomSlayer"),
             Rarity = RarityUtils.GetRarity("Legendary"),
-            Theme = CardThemeColor.CardThemeColorType.DestructiveRed,
-            Stats = new[]
-            {
-                new CardInfoStat
-                {
-                    amount = "<#8B0000>+ Rip",
-                    positive = true,
-                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned,
-                    stat = "<#8B0000>and Tear"
-                }
-            }
+            Theme = CardThemeColor.CardThemeColorType.DestructiveRed
         };
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
             cardInfo.allowMultiple = false;
             gun.damage = 5f;
             statModifiers.health = 5f;
-            statModifiers.movementSpeed = 2f;
-            statModifiers.regen = 5f;
+            statModifiers.movementSpeed = 3f;
+            statModifiers.regen = 25f;
             statModifiers.lifeSteal = 5f;
         }
     }

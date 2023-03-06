@@ -27,7 +27,7 @@ namespace KFC.Cards
         {
             Title = "Body of the Rift",
             Description = "Step into the rift for a short time",
-            ModName = "RIFT",
+            ModName = KFC.ModInitials,
             Art = KFC.ArtAssets.LoadAsset<GameObject>("C_RiftBody"),
             Rarity = RarityUtils.GetRarity("Legendary"),
             Theme = CardThemeColor.CardThemeColorType.EvilPurple,

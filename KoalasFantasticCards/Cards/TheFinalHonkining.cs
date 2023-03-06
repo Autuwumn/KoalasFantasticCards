@@ -1,4 +1,4 @@
-using HarmonyLib;
+﻿using HarmonyLib;
 using KFC.Cards;
 using KFC.MonoBehaviors;
 using ModsPlus;
@@ -13,22 +13,22 @@ using UnityEngine;
 
 namespace KFC.Cards
 {
-    public class uwullets : SimpleCard
+    public class Honkining : SimpleCard
     {
         internal static CardInfo card = null;
         public override CardDetails Details => new CardDetails
         {
-            Title = "UwU",
-            Description = "In need of a lumberjack are you?",
+            Title = "The Final Honkening",
+            Description = "Honk Honk Honk Honk",
             ModName = KFC.ModInitials,
-            Art = KFC.ArtAssets.LoadAsset<GameObject>("C_UwU"),
+            Art = KFC.ArtAssets.LoadAsset<GameObject>("C_Honk"),
             Rarity = CardInfo.Rarity.Uncommon,
-            Theme = CardThemeColor.CardThemeColorType.MagicPink,
+            Theme = CardThemeColor.CardThemeColorType.FirepowerYellow,
             Stats = new[]
             {
                 new CardInfoStat
                 {
-                    amount = "<#FF00FF>UwU",
+                    amount = "<#FFFF00>Honk",
                     positive = true,
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned,
                     stat = "Bullets"
@@ -38,36 +38,30 @@ namespace KFC.Cards
                     amount = "+25%",
                     positive = true,
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned,
-                    stat = "Damage"
+                    stat = "Health"
                 }
             }
         };
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
             cardInfo.allowMultiple = false;
-            gun.damage = 1.25f;
-            gun.projectileColor = Color.magenta;
+            statModifiers.health = 1.25f;
+            gun.projectileColor = Color.yellow;
         }
         protected override void Added(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
             base.Added(player, gun, gunAmmo, data, health, gravity, block, characterStats);
             SoundContainer soundContainer = ScriptableObject.CreateInstance<SoundContainer>();
             soundContainer.setting.volumeIntensityEnable = true;
-            soundContainer.audioClip[0] = KFC.uwu;
+            soundContainer.audioClip[0] = KFC.honk;
             SoundEvent uwuSound = ScriptableObject.CreateInstance<SoundEvent>();
             uwuSound.soundContainerArray[0] = soundContainer;
-            SoundContainer sc2 = ScriptableObject.CreateInstance<SoundContainer>();
-            sc2.setting.volumeIntensityEnable = true;
-            sc2.audioClip[0] = KFC.owo;
-            SoundEvent owoSound = ScriptableObject.CreateInstance<SoundEvent>();
-            owoSound.soundContainerArray[0] = sc2;
             gun.soundGun.soundShotModifierBasic.single = uwuSound;
             gun.soundGun.soundShotModifierBasic.singleAutoLoop = uwuSound;
             gun.soundGun.soundShotModifierBasic.singleAutoTail = uwuSound;
-            gun.soundGun.soundShotModifierBasic.shotgun = owoSound;
-            gun.soundGun.soundShotModifierBasic.shotgunAutoLoop = owoSound;
-            gun.soundGun.soundShotModifierBasic.shotgunAutoTail = owoSound;
-            UnityEngine.Debug.Log("d/dx 2x^3 + 2x^2 + 2x is very mysterious");
+            gun.soundGun.soundShotModifierBasic.shotgun = uwuSound;
+            gun.soundGun.soundShotModifierBasic.shotgunAutoLoop = uwuSound;
+            gun.soundGun.soundShotModifierBasic.shotgunAutoTail = uwuSound;
         }
     }
 }

@@ -3,6 +3,8 @@ using ModsPlus;
 using UnboundLib;
 using KFC.MonoBehaviors;
 using ClassesManagerReborn.Util;
+using RarityLib.Utils;
+using CardChoiceSpawnUniqueCardPatch.CustomCategories;
 
 namespace KFC.Cards
 {
@@ -15,11 +17,11 @@ namespace KFC.Cards
         }
         public override CardDetails Details => new CardDetails
         {
-            Title = "c++;",
+            Title = "increase c",
             Description = "Is this good, or bad?",
-            ModName = KFC.ModInitials,
+            ModName = KFC.ModIntDed,
             Art = KFC.ArtAssets.LoadAsset<GameObject>("C_CViruz"),
-            Rarity = CardInfo.Rarity.Rare,
+            Rarity = CardInfo.Rarity.Uncommon,
             Theme = CardThemeColor.CardThemeColorType.MagicPink,
             Stats = new[]
             {
@@ -32,5 +34,26 @@ namespace KFC.Cards
                 }
             }
         };
+        protected override void Added(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
+        {
+            if (!player.data.view.IsMine) return;
+            var classCards = 0;
+            foreach (var card in player.data.currentCards)
+            {
+                if (card.cardName.Equals("increase a") || card.cardName.Equals("increase b") || card.cardName.Equals("increase c"))
+                {
+                    classCards++;
+                }
+            }
+            if (classCards >= 15)
+            {
+                CustomCardCategories.instance.MakeCardsExclusive(Ard.card, ViruzCard.card);
+                CustomCardCategories.instance.MakeCardsExclusive(Bard.card, ViruzCard.card);
+                CustomCardCategories.instance.MakeCardsExclusive(Ccard.card, ViruzCard.card);
+                CustomCardCategories.instance.MakeCardsExclusive(ViruzCard.card, Ard.card);
+                CustomCardCategories.instance.MakeCardsExclusive(ViruzCard.card, Bard.card);
+                CustomCardCategories.instance.MakeCardsExclusive(ViruzCard.card, Ccard.card);
+            }
+        }
     }
 }

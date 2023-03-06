@@ -23,7 +23,7 @@ namespace KFC.Cards
         {
             Title = "Hands of the Rift",
             Description = "Your hands reach into the rift, and pull out power",
-            ModName = "RIFT",
+            ModName = KFC.ModInitials,
             Art = KFC.ArtAssets.LoadAsset<GameObject>("C_RiftGun"),
             Rarity = RarityUtils.GetRarity("Legendary"),
             Theme = CardThemeColor.CardThemeColorType.EvilPurple,

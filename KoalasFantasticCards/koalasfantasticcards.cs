@@ -17,6 +17,8 @@ using Sonigon;
 using RarityLib.Utils;
 using System.Net.NetworkInformation;
 using Photon.Compression;
+using UnboundLib.GameModes;
+using System.Collections;
 
 namespace KFC
 {
@@ -32,12 +34,14 @@ namespace KFC
     {
         private const string ModId = "koala.koalas.fantastic.cards";
         private const string ModName = "Koalas Fantastic Cards";
-        public const string Version = "2.1.6";
+        public const string Version = "2.2.6";
         public const string ModInitials = "KFC";
+        public const string ModIntDed = "KFC Dedicat";
 
         internal static KFC instance;
 
         public static AudioClip uwu;
+        public static AudioClip honk;
         public static AudioClip owo;
         public static int pogess = 0;
 
@@ -94,6 +98,7 @@ namespace KFC
 
             uwu = ArtAssets.LoadAsset<AudioClip>("uwu");
             owo = ArtAssets.LoadAsset<AudioClip>("owo");
+            owo = ArtAssets.LoadAsset<AudioClip>("honk");
 
             if (KFC.ArtAssets == null)
             {
@@ -117,13 +122,13 @@ namespace KFC
 
             //CustomCard.BuildCard<splinter>((card) => { splinter.card = card; card.SetAbbreviation("Sp"); });
             CustomCard.BuildCard<indiajoenas>((card) => { indiajoenas.card = card; card.SetAbbreviation("Ij"); });
-            CustomCard.BuildCard<Alyssa>((card) => { Alyssa.card = card; });
             //CustomCard.BuildCard<turret>((card) => { turret.card = card; card.SetAbbreviation("Tu"); });
             CustomCard.BuildCard<legos>((card) => { legos.card = card; card.SetAbbreviation("Le"); });
             CustomCard.BuildCard<uwullets>((card) => { uwullets.card = card; card.SetAbbreviation("Uw"); });
             CustomCard.BuildCard<scp_500>((card) => { scp_500.card = card; card.SetAbbreviation("S5"); });
             CustomCard.BuildCard<doomSlayer>((card) => { doomSlayer.card = card; card.SetAbbreviation("DS"); });
             CustomCard.BuildCard<blackholegun>((card) => { blackholegun.card = card; card.SetAbbreviation("Bh"); });
+            CustomCard.BuildCard<Armor>((card) => { Armor.card = card; card.SetAbbreviation("Ar"); });
             //CustomCard.BuildCard<RedHerring>((card) => { RedHerring.card = card; card.SetAbbreviation("Rh"); });
 
             CustomCard.BuildCard<swordinstone>((card) => { swordinstone.card = card; card.SetAbbreviation("Ss"); });
@@ -141,6 +146,17 @@ namespace KFC
             CustomCard.BuildCard<Ard>((card) => { Ard.card = card; });
             CustomCard.BuildCard<Bard>((card) => { Bard.card = card; });
             CustomCard.BuildCard<Ccard>((card) => { Ccard.card = card; });
+
+
+            CustomCard.BuildCard<VoloMori>((card) => { VoloMori.card = card; });
+            CustomCard.BuildCard<ImCursed>((card) => { ImCursed.card = card; });
+            CustomCard.BuildCard<Alyssa>((card) => { Alyssa.card = card; });
+            CustomCard.BuildCard<Geballion>((card) => { Geballion.card = card; });
+        }
+        public IEnumerator GameStart(IGameModeHandler gameModeHandler)
+        {
+            //scp_500.card.rarity = RarityUtils.GetRarity("Divine");
+            yield break;
         }
         public static bool Debug = false;
     }

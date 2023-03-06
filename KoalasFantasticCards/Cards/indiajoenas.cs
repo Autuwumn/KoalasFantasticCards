@@ -26,7 +26,7 @@ namespace KFC.Cards
             Description = "Definetly not a refrence, sorry theres a key on my catboard",
             ModName     = KFC.ModInitials,
             Art         = KFC.ArtAssets.LoadAsset<GameObject>("C_IndiaJoenas"),
-            Rarity      = RarityUtils.GetRarity("Epic"),
+            Rarity      = CardInfo.Rarity.Rare,
             Theme       = CardThemeColor.CardThemeColorType.EvilPurple,
             OwnerOnly = true
         };
@@ -45,15 +45,17 @@ namespace KFC.MonoBehaviors
         private int rocks = 0;
         public void SpawnBall()
         {
-            if(rocks > 3) return;
+            if(rocks > 5) return;
             List<Player> enemyPlayers = PlayerManager.instance.players.Where((pl) => pl.playerID != player.playerID && pl.teamID != player.teamID && pl.data.health > 0).ToList();
             if (enemyPlayers.Count == 0) return;
             Player pt = enemyPlayers[UnityEngine.Random.Range(0, enemyPlayers.Count)];
             var aimVector = pt.data.aimDirection.normalized;
-            var dist = 10;
-            var ballPos = pt.transform.position-aimVector.normalized*dist;
+            var dist = 15;
+            //var ballPos = pt.transform.position-aimVector.normalized*dist;
+            var ballPos = pt.transform.position + new Vector3(0, dist, 0);
             var betterBall = PhotonNetwork.Instantiate("KFC_Boulder", ballPos, Quaternion.identity);
-            betterBall.GetComponent<Rigidbody2D>().velocity = aimVector*200f;
+            betterBall.GetComponent<Rigidbody2D>().velocity = new Vector3(0, -50, 0);
+            //betterBall.GetComponent<Rigidbody2D>().velocity = aimVector*200f;
             rocks++;
             KFC.instance.ExecuteAfterSeconds(5f, () =>
             {

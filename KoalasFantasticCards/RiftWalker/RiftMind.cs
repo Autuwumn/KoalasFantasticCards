@@ -23,7 +23,7 @@ namespace KFC.Cards
         {
             Title = "Mind of the Rift",
             Description = "Your minds is so corrupt it cant be corrupted more",
-            ModName = "RIFT",
+            ModName = KFC.ModInitials,
             Art = KFC.ArtAssets.LoadAsset<GameObject>("C_RiftMind"),
             Rarity = RarityUtils.GetRarity("Legendary"),
             Theme = CardThemeColor.CardThemeColorType.EvilPurple,
