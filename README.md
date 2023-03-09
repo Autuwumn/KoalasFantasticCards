@@ -12,7 +12,7 @@
 - UwU
 	- You dont want to know
 - SCP-500
-	- Removes basic ne
+	- Removes basic negative stats from all your current cards and removes all current curses
 - Armor
 	- Gives a 100 hp shield that is seperate from your regular hp
 - Red Herring
