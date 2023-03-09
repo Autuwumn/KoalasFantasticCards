@@ -39,6 +39,24 @@ namespace KFC.Cards
             this.transform.GetChild(0).GetChild(0).GetChild(1).GetChild(0).GetChild(2).gameObject.SetActive(false);
             cardInfo.allowMultiple = false;
         }
+        protected override void Added(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
+        {
+            KFC.instance.ExecuteAfterFrames(10, () =>
+            {
+                ModdingUtils.Utils.Cards.instance.AddCardToPlayer(player, Rifted.card, false, "__", 0, 0);
+                ModdingUtils.Utils.CardBarUtils.instance.ShowImmediate(player, Rifted.card);
+                gun.damage *= 0.99f;
+                gun.dmgMOnBounce *= 0.99f;
+                gun.speedMOnBounce *= 0.99f;
+                gun.spread += 0.01f;
+                gun.projectileSpeed *= 0.99f;
+                characterStats.movementSpeed *= 0.99f;
+                characterStats.health *= 0.99f;
+                gun.reloadTime *= 1.01f;
+                gun.attackSpeed *= 1.01f;
+                gun.reloadTimeAdd += 0.05f;
+            });
+        }
         public override bool GetEnabled()
         {
             return false;
@@ -51,7 +69,7 @@ namespace KFC.RiftShenanigans
     {
         public override IEnumerator OnPointStart(IGameModeHandler gameModeHandler)
         {
-            KFC.instance.ExecuteAfterFrames(20, () =>
+            KFC.instance.ExecuteAfterFrames(10, () =>
             {
                 ModdingUtils.Utils.Cards.instance.AddCardToPlayer(player, Rifted.card, false, "__", 0, 0);
                 ModdingUtils.Utils.CardBarUtils.instance.ShowImmediate(player, Rifted.card);

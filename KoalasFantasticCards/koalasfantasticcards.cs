@@ -19,6 +19,7 @@ using System.Net.NetworkInformation;
 using Photon.Compression;
 using UnboundLib.GameModes;
 using System.Collections;
+using System;
 
 namespace KFC
 {
@@ -34,9 +35,9 @@ namespace KFC
     {
         private const string ModId = "koala.koalas.fantastic.cards";
         private const string ModName = "Koalas Fantastic Cards";
-        public const string Version = "2.2.6";
+        public const string Version = "3.0.0";
         public const string ModInitials = "KFC";
-        public const string ModIntDed = "KFC Dedicat";
+        public const string ModIntDed = "KFC DediCat";
 
         internal static KFC instance;
 
@@ -98,7 +99,7 @@ namespace KFC
 
             uwu = ArtAssets.LoadAsset<AudioClip>("uwu");
             owo = ArtAssets.LoadAsset<AudioClip>("owo");
-            owo = ArtAssets.LoadAsset<AudioClip>("honk");
+            honk = ArtAssets.LoadAsset<AudioClip>("honk");
 
             if (KFC.ArtAssets == null)
             {
@@ -129,7 +130,8 @@ namespace KFC
             CustomCard.BuildCard<doomSlayer>((card) => { doomSlayer.card = card; card.SetAbbreviation("DS"); });
             CustomCard.BuildCard<blackholegun>((card) => { blackholegun.card = card; card.SetAbbreviation("Bh"); });
             CustomCard.BuildCard<Armor>((card) => { Armor.card = card; card.SetAbbreviation("Ar"); });
-            //CustomCard.BuildCard<RedHerring>((card) => { RedHerring.card = card; card.SetAbbreviation("Rh"); });
+            CustomCard.BuildCard<Extendo>((card) => { Extendo.card = card; card.SetAbbreviation("Ex"); });
+            CustomCard.BuildCard<RedHerring>((card) => { RedHerring.card = card; card.SetAbbreviation("Rh"); });
 
             CustomCard.BuildCard<swordinstone>((card) => { swordinstone.card = card; card.SetAbbreviation("Ss"); });
             CustomCard.BuildCard<excaliber>((card) => { excaliber.card = card; card.SetAbbreviation("Ex"); });
@@ -150,8 +152,108 @@ namespace KFC
 
             CustomCard.BuildCard<VoloMori>((card) => { VoloMori.card = card; });
             CustomCard.BuildCard<ImCursed>((card) => { ImCursed.card = card; });
+            CustomCard.BuildCard<F3nxCorgi>((card) => { F3nxCorgi.card = card; });
             CustomCard.BuildCard<Alyssa>((card) => { Alyssa.card = card; });
             CustomCard.BuildCard<Geballion>((card) => { Geballion.card = card; });
+            CustomCard.BuildCard<HaruShijun>((card) => { HaruShijun.card = card; });
+        }
+        public string randValue(bool posGood)
+        {
+            string s = null;
+            float num = UnityEngine.Random.Range(-5f, 5f)*100;
+            if (num > 0 && posGood) s = "<#00ff00>+" + (int)num + "%";
+            if (num < 0 && !posGood) s = "<#00ff00>" + (int)num + "%";
+            if (num < 0 && posGood) s = "<#ff0000>" + (int)num + "%";
+            if (num > 0 && !posGood) s = "<#ff0000>+" + (int)num + "%";
+            if(num == 0)
+            {
+                s = "<#ffff00>+0%";
+            }
+            return s;
+        }
+        public string randInt()
+        {
+            string s = null;
+            int num = UnityEngine.Random.Range(-5, 5);
+            if (num > 0)
+            {
+                s = "<#00ff00>+" + num;
+            }
+            if (num < 0)
+            {
+                s = "<#ff0000>" + num;
+            }
+            if (num == 0)
+            {
+                s = "<#ffff00>+" + num;
+            }
+            return s;
+        }
+        public void Update()
+        {
+            if (RedHerring.card)
+            {
+                RedHerring.card.cardDestription = "Discalimer: These are randomized on pickup";
+                RedHerring.card.cardStats = new[]
+                {
+                    new CardInfoStat()
+                    {
+                        amount = randValue(true),
+                        positive = true,
+                        simepleAmount = CardInfoStat.SimpleAmount.notAssigned,
+                        stat = "Damage"
+                    },
+                    new CardInfoStat()
+                    {
+                        amount = randValue(false),
+                        positive = true,
+                        simepleAmount = CardInfoStat.SimpleAmount.notAssigned,
+                        stat = "Attack Speed"
+                    },
+                    new CardInfoStat()
+                    {
+                        amount = randValue(false),
+                        positive = true,
+                        simepleAmount = CardInfoStat.SimpleAmount.notAssigned,
+                        stat = "Reload Time"
+                    },
+                    new CardInfoStat()
+                    {
+                        amount = randValue(true),
+                        positive = true,
+                        simepleAmount = CardInfoStat.SimpleAmount.notAssigned,
+                        stat = "Projectile Speed"
+                    },
+                    new CardInfoStat()
+                    {
+                        amount = randValue(true),
+                        positive = true,
+                        simepleAmount = CardInfoStat.SimpleAmount.notAssigned,
+                        stat = "Health"
+                    },
+                    new CardInfoStat()
+                    {
+                        amount = randValue(true),
+                        positive = true,
+                        simepleAmount = CardInfoStat.SimpleAmount.notAssigned,
+                        stat = "Movement Speed"
+                    },
+                    new CardInfoStat()
+                    {
+                        amount = randInt(),
+                        positive = true,
+                        simepleAmount = CardInfoStat.SimpleAmount.notAssigned,
+                        stat = "Ammo"
+                    },
+                    new CardInfoStat()
+                    {
+                        amount = randInt(),
+                        positive = true,
+                        simepleAmount = CardInfoStat.SimpleAmount.notAssigned,
+                        stat = "Bullets"
+                    }
+                };
+            }
         }
         public IEnumerator GameStart(IGameModeHandler gameModeHandler)
         {
