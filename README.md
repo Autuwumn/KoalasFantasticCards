@@ -10,9 +10,35 @@
 - A Bunch of Legos
 	- Bullets create random legos where they land
 - UwU
-	- Check your logs ;)
+	- You dont want to know
 - SCP-500
-	- Removes some negative effects on cards you have
+	- Removes basic ne
+- Armor
+	- Gives a 100 hp shield that is seperate from your regular hp
+- Red Herring
+	- /5 to *5 for basic stats
+- Doom Slayer
+	- 5* stats
+- Extendo Gun
+	- Bullets spawn farther away from you
 
 
 - Myterious Rift Walker Class
+
+
+# Dedication Cards
+- Viruz Class
+	- Gives stats depedning on the equation, get variable increase to increase equation strength
+	- You can only get 15 total of the a, b, and c increase cards, so try to manage it correctly
+- ImCursedM8
+	- Its a gattling gun
+- Reinette
+	- Tiny size and blockcooldown
+- HaruShijun
+	- Gain 3 random block effecting cards
+- Geballion
+	- Become tanky and hurt nearby players
+- Alyssa
+	- *14 projectile speed
+- F3NX_Corgi
+	- Gives 9 bounces and gain 1.01^(current bounces) dmg and speed on bounce
