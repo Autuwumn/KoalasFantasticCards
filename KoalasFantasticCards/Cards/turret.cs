@@ -109,10 +109,11 @@ namespace KFC.MonoBehaviors
             gameObject.transform.GetChild(0).gameObject.transform.up = lookAt;
             var aimVector = lookAt.normalized;
             attackCount += TimeHandler.deltaTime;
+            print(damage);
             if(attackCount > attackSpeed)
             {
                 attackCount = 0f;
-                gun.BulletInit(gameObject, 0, 100f, 0.5f, false);
+                print("shoot");
             }
         }
     }

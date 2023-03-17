@@ -10,6 +10,7 @@ using UnityEngine.SceneManagement;
 using System;
 using UnboundLib.Networking;
 using Photon.Pun.Simple;
+using System.Linq;
 
 namespace KFC.Cards
 {
@@ -19,7 +20,7 @@ namespace KFC.Cards
         public override CardDetails Details => new CardDetails
         {
             Title = "Red Herring",
-            Description = null,
+            Description = "Gives between *5 and /5 to each basic stat\nDisplays stats after pickup",
             ModName = KFC.ModInitials,
             Art = null,
             Rarity = CardInfo.Rarity.Rare,
@@ -42,7 +43,7 @@ namespace KFC.Cards
         }
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
-            
+            card.cardStats = null;
             cardInfo.allowMultiple = false;
             gun.spread = 0.1f;
         }
@@ -63,6 +64,7 @@ namespace KFC.Cards
         [UnboundRPC]
         public static void RPC_Herring(int pid, float[] fluts, int[] onts)
         {
+            card.cardStats = new CardInfoStat[8]; 
             KFC.instance.ExecuteAfterFrames(10, () =>
             {
                 var player = PlayerManager.instance.GetPlayerWithID(pid);
@@ -73,11 +75,27 @@ namespace KFC.Cards
                 gun.attackSpeed *= fluts[1];
                 gun.reloadTime *= fluts[2];
                 gun.projectileSpeed *= fluts[3];
-                gunAmmo.maxAmmo += onts[0];
-                gun.numberOfProjectiles += onts[1];
                 player.data.maxHealth *= fluts[4];
                 player.data.health = player.data.maxHealth;
                 stats.movementSpeed *= fluts[5];
+                gunAmmo.maxAmmo += onts[0];
+                gun.numberOfProjectiles += onts[1];
+                card.cardStats[0] = new CardInfoStat { amount = "*" + fluts[0], positive = true, simepleAmount = CardInfoStat.SimpleAmount.notAssigned, stat = "Damage" };
+                card.cardStats[1] = new CardInfoStat { amount = "*" + fluts[1], positive = true, simepleAmount = CardInfoStat.SimpleAmount.notAssigned, stat = "Attack Speed" };
+                card.cardStats[2] = new CardInfoStat { amount = "*" + fluts[2], positive = true, simepleAmount = CardInfoStat.SimpleAmount.notAssigned, stat = "Reload Time" };
+                card.cardStats[3] = new CardInfoStat { amount = "*" + fluts[3], positive = true, simepleAmount = CardInfoStat.SimpleAmount.notAssigned, stat = "Projectile Speed" };
+                card.cardStats[4] = new CardInfoStat { amount = "*" + fluts[4], positive = true, simepleAmount = CardInfoStat.SimpleAmount.notAssigned, stat = "Health" };
+                card.cardStats[5] = new CardInfoStat { amount = "*" + fluts[5], positive = true, simepleAmount = CardInfoStat.SimpleAmount.notAssigned, stat = "Speed" };
+                card.cardStats[6] = new CardInfoStat { amount = "+" + onts[0], positive = true, simepleAmount = CardInfoStat.SimpleAmount.notAssigned, stat = "Ammo" };
+                card.cardStats[7] = new CardInfoStat { amount = "+" + onts[1], positive = true, simepleAmount = CardInfoStat.SimpleAmount.notAssigned, stat = "Bullets" };
+                if (fluts[0] < 1) card.cardStats[0] = new CardInfoStat { amount = "*" + fluts[0], positive = false, simepleAmount = CardInfoStat.SimpleAmount.notAssigned, stat = "Damage" };
+                if (fluts[1] > 1) card.cardStats[1] = new CardInfoStat { amount = "*" + fluts[1], positive = false, simepleAmount = CardInfoStat.SimpleAmount.notAssigned, stat = "Attack Speed" };
+                if (fluts[2] > 1) card.cardStats[2] = new CardInfoStat { amount = "*" + fluts[2], positive = false, simepleAmount = CardInfoStat.SimpleAmount.notAssigned, stat = "Reload Time" };
+                if (fluts[3] < 1) card.cardStats[3] = new CardInfoStat { amount = "*" + fluts[3], positive = false, simepleAmount = CardInfoStat.SimpleAmount.notAssigned, stat = "Projectile Speed" };
+                if (fluts[4] < 1) card.cardStats[4] = new CardInfoStat { amount = "*" + fluts[4], positive = false, simepleAmount = CardInfoStat.SimpleAmount.notAssigned, stat = "Health" };
+                if (fluts[5] < 1) card.cardStats[5] = new CardInfoStat { amount = "*" + fluts[5], positive = false, simepleAmount = CardInfoStat.SimpleAmount.notAssigned, stat = "Speed" };
+                if (onts[0] < 0) card.cardStats[6] = new CardInfoStat { amount = "" + onts[0], positive = false, simepleAmount = CardInfoStat.SimpleAmount.notAssigned, stat = "Ammo" };
+                if (onts[1] < 0) card.cardStats[7] = new CardInfoStat { amount = "" + onts[1], positive = false, simepleAmount = CardInfoStat.SimpleAmount.notAssigned, stat = "Bullet" };
             });
         }
     }

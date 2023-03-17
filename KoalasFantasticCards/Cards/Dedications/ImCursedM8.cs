@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System;
 using System.Collections;
 using UnboundLib.GameModes;
+using CardChoiceSpawnUniqueCardPatch.CustomCategories;
 
 namespace KFC.Cards
 {
@@ -27,6 +28,8 @@ namespace KFC.Cards
         };
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
+            cardInfo.categories = new CardCategory[] { CustomCardCategories.instance.CardCategory("CardManipulation") };
+            cardInfo.allowMultiple = false;
             gun.reloadTime = 0.00001f;
             gun.attackSpeed = 0.1f;
             gun.ammo = 27;

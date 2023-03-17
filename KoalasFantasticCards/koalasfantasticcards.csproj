@@ -66,6 +66,9 @@
 	  <Reference Include="RarityLib">
 	    <HintPath>..\..\..\..\AppData\Roaming\r2modmanPlus-local\ROUNDS\profiles\Default\BepInEx\plugins\Root-RarityLib\RarityLib.dll</HintPath>
 	  </Reference>
+	  <Reference Include="SimulationChamber">
+	    <HintPath>..\..\..\..\AppData\Roaming\r2modmanPlus-local\ROUNDS\profiles\Default\BepInEx\plugins\willuwontu-SimulationChamber\SimulationChamber.dll</HintPath>
+	  </Reference>
 	  <Reference Include="SonigonAudioEngine.Runtime">
 	    <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\ROUNDS\Rounds_Data\Managed\SonigonAudioEngine.Runtime.dll</HintPath>
 	  </Reference>

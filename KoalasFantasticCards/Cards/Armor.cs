@@ -25,10 +25,6 @@ namespace KFC.Cards
             Rarity = CardInfo.Rarity.Rare,
             Theme = CardThemeColor.CardThemeColorType.FirepowerYellow
         };
-        public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
-        {
-            cardInfo.allowMultiple = false;
-        }
     }
 }
 
@@ -38,15 +34,22 @@ namespace KFC.MonoBehaviors
     {
         private float armorHp = 0f;
         private bool armorDestroyed = true;
-        private CustomHealthBar healthBar;
+        //private CustomHealthBar healthBar;
 
         private void ResetHealthBar()
         {
-            healthBar = player.transform.GetChild(2).gameObject.GetOrAddComponent<CustomHealthBar>();
-            healthBar.enabled = true;
-            armorHp = 100f;
-            healthBar.SetValues(armorHp, 100f);
-            healthBar.SetColor(Color.gray);
+            //healthBar = player.transform.GetChild(2).gameObject.GetOrAddComponent<CustomHealthBar>();
+            //healthBar.enabled = true;
+            armorHp = 0f;
+            foreach (var c in player.data.currentCards)
+            {
+                if (c == Armor.card)
+                {
+                    armorHp += 100f;
+                }
+            }
+            //healthBar.SetValues(armorHp, 100f);
+            //healthBar.SetColor(Color.gray);
             armorDestroyed = false;
 
         }
@@ -72,11 +75,11 @@ namespace KFC.MonoBehaviors
             if(!armorDestroyed)
             {
                 armorHp -= dmgTaken;
-                healthBar.SetValues(armorHp, 100f);
+                //healthBar.SetValues(armorHp, 100f);
                 player.data.health += dmgTaken;
                 if(armorHp <= 0f)
                 {
-                    Destroy(healthBar.gameObject);
+                    //Destroy(healthBar.gameObject);
                     armorDestroyed = true;
                 }
             }

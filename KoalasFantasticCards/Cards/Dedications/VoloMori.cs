@@ -8,6 +8,7 @@ using KFC.Cards;
 using System.Linq;
 using System.Collections.Generic;
 using System;
+using CardChoiceSpawnUniqueCardPatch.CustomCategories;
 
 namespace KFC.Cards
 {
@@ -42,6 +43,7 @@ namespace KFC.Cards
         };
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
+            cardInfo.categories = new CardCategory[] { CustomCardCategories.instance.CardCategory("CardManipulation") };
             cardInfo.allowMultiple = false;
             block.cdMultiplier = 0.4f;
             statModifiers.sizeMultiplier = 0.4f;

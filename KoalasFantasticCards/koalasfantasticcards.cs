@@ -20,6 +20,8 @@ using Photon.Compression;
 using UnboundLib.GameModes;
 using System.Collections;
 using System;
+using WillsWackyManagers.Utils;
+using UnboundLib.Utils;
 
 namespace KFC
 {
@@ -35,9 +37,10 @@ namespace KFC
     {
         private const string ModId = "koala.koalas.fantastic.cards";
         private const string ModName = "Koalas Fantastic Cards";
-        public const string Version = "3.0.0";
+        public const string Version = "3.1.0";
         public const string ModInitials = "KFC";
         public const string ModIntDed = "KFC DediCat";
+        public const string CurseInt = "KFC Curses";
 
         internal static KFC instance;
 
@@ -45,7 +48,7 @@ namespace KFC
         public static AudioClip honk;
         public static AudioClip owo;
         public static int pogess = 0;
-
+        
         internal static AssetBundle ArtAssets;
 
         public static ConfigEntry<float> globalVolMute;
@@ -67,7 +70,7 @@ namespace KFC
 
         private void NewGUI(GameObject menu)
         {
-            var fs = new[] { "Fantastic", "Fabulous", "Fried", "Fancy", "Freaky", "Fat", "Foolish", "Funny", "False", "Fortuitus", "Fast", "Ferocious", "Fair", "Fashionable", "Finger-lickin", "Female", "Fucking Annoying" };
+            var fs = new[] { "Fake", "Fantastic", "Fabulous", "Fried", "Fancy", "Freaky", "Fat", "Foolish", "Funny", "False", "Fortuitus", "Fast", "Ferocious", "Fair", "Fashionable", "Finger-lickin", "Female", "Fucking Annoying", "Forbidden"};
             MenuHandler.CreateSlider("Funny Number", menu, 50, -10f, 10f, globalVolMute.Value, GlobalVolAction, out UnityEngine.UI.Slider volumeSlider, false);
             //MenuHandler.CreateInputField("I like salads", 50, menu, GoofyAction);
             MenuHandler.CreateSlider("Salad", menu, 50, 1, 26, sliderChange.Value, SliderChangeAction, out UnityEngine.UI.Slider sluder, true);
@@ -86,7 +89,7 @@ namespace KFC
             var harmony = new Harmony(ModId);
             harmony.PatchAll();
             instance = this;
-            var fs = new[] { "Fantastic", "Fabulous", "Fried", "Fancy", "Freaky", "Fat", "Foolish", "Funny", "False", "Fortuitus", "Fast", "Ferocious", "Fair", "Fashionable", "Finger-lickin", "Female", "Fucking Annoying" };
+            var fs = new[] { "Fake", "Fantastic", "Fabulous", "Fried", "Fancy", "Freaky", "Fat", "Foolish", "Funny", "False", "Fortuitus", "Fast", "Ferocious", "Fair", "Fashionable", "Finger-lickin", "Female", "Fucking Annoying", "Forbidden" };
             var lmao = fs[UnityEngine.Random.Range(0, fs.Length)];
             Unbound.RegisterMenu("Koala's " + lmao + " Cards", () => { }, this.NewGUI, null, true);
             globalVolMute = base.Config.Bind<float>("KFC", "card volume", 100f, "hmmm");
@@ -132,6 +135,7 @@ namespace KFC
             CustomCard.BuildCard<Armor>((card) => { Armor.card = card; card.SetAbbreviation("Ar"); });
             CustomCard.BuildCard<Extendo>((card) => { Extendo.card = card; card.SetAbbreviation("Ex"); });
             CustomCard.BuildCard<RedHerring>((card) => { RedHerring.card = card; card.SetAbbreviation("Rh"); });
+            CustomCard.BuildCard<UncappedAmmo>((card) => { UncappedAmmo.card = card; card.SetAbbreviation("Ua"); });
 
             CustomCard.BuildCard<swordinstone>((card) => { swordinstone.card = card; card.SetAbbreviation("Ss"); });
             CustomCard.BuildCard<excaliber>((card) => { excaliber.card = card; card.SetAbbreviation("Ex"); });
@@ -149,111 +153,15 @@ namespace KFC
             CustomCard.BuildCard<Bard>((card) => { Bard.card = card; });
             CustomCard.BuildCard<Ccard>((card) => { Ccard.card = card; });
 
-
             CustomCard.BuildCard<VoloMori>((card) => { VoloMori.card = card; });
             CustomCard.BuildCard<ImCursed>((card) => { ImCursed.card = card; });
             CustomCard.BuildCard<F3nxCorgi>((card) => { F3nxCorgi.card = card; });
             CustomCard.BuildCard<Alyssa>((card) => { Alyssa.card = card; });
             CustomCard.BuildCard<Geballion>((card) => { Geballion.card = card; });
             CustomCard.BuildCard<HaruShijun>((card) => { HaruShijun.card = card; });
-        }
-        public string randValue(bool posGood)
-        {
-            string s = null;
-            float num = UnityEngine.Random.Range(-5f, 5f)*100;
-            if (num > 0 && posGood) s = "<#00ff00>+" + (int)num + "%";
-            if (num < 0 && !posGood) s = "<#00ff00>" + (int)num + "%";
-            if (num < 0 && posGood) s = "<#ff0000>" + (int)num + "%";
-            if (num > 0 && !posGood) s = "<#ff0000>+" + (int)num + "%";
-            if(num == 0)
-            {
-                s = "<#ffff00>+0%";
-            }
-            return s;
-        }
-        public string randInt()
-        {
-            string s = null;
-            int num = UnityEngine.Random.Range(-5, 5);
-            if (num > 0)
-            {
-                s = "<#00ff00>+" + num;
-            }
-            if (num < 0)
-            {
-                s = "<#ff0000>" + num;
-            }
-            if (num == 0)
-            {
-                s = "<#ffff00>+" + num;
-            }
-            return s;
-        }
-        public void Update()
-        {
-            if (RedHerring.card)
-            {
-                RedHerring.card.cardDestription = "Discalimer: These are randomized on pickup";
-                RedHerring.card.cardStats = new[]
-                {
-                    new CardInfoStat()
-                    {
-                        amount = randValue(true),
-                        positive = true,
-                        simepleAmount = CardInfoStat.SimpleAmount.notAssigned,
-                        stat = "Damage"
-                    },
-                    new CardInfoStat()
-                    {
-                        amount = randValue(false),
-                        positive = true,
-                        simepleAmount = CardInfoStat.SimpleAmount.notAssigned,
-                        stat = "Attack Speed"
-                    },
-                    new CardInfoStat()
-                    {
-                        amount = randValue(false),
-                        positive = true,
-                        simepleAmount = CardInfoStat.SimpleAmount.notAssigned,
-                        stat = "Reload Time"
-                    },
-                    new CardInfoStat()
-                    {
-                        amount = randValue(true),
-                        positive = true,
-                        simepleAmount = CardInfoStat.SimpleAmount.notAssigned,
-                        stat = "Projectile Speed"
-                    },
-                    new CardInfoStat()
-                    {
-                        amount = randValue(true),
-                        positive = true,
-                        simepleAmount = CardInfoStat.SimpleAmount.notAssigned,
-                        stat = "Health"
-                    },
-                    new CardInfoStat()
-                    {
-                        amount = randValue(true),
-                        positive = true,
-                        simepleAmount = CardInfoStat.SimpleAmount.notAssigned,
-                        stat = "Movement Speed"
-                    },
-                    new CardInfoStat()
-                    {
-                        amount = randInt(),
-                        positive = true,
-                        simepleAmount = CardInfoStat.SimpleAmount.notAssigned,
-                        stat = "Ammo"
-                    },
-                    new CardInfoStat()
-                    {
-                        amount = randInt(),
-                        positive = true,
-                        simepleAmount = CardInfoStat.SimpleAmount.notAssigned,
-                        stat = "Bullets"
-                    }
-                };
-            }
+            CustomCard.BuildCard<Pexiltd>((card) => { Pexiltd.card = card; });
+
+            CustomCard.BuildCard<LaggyBullets>((card) => { LaggyBullets.card = card; CurseManager.instance.RegisterCurse(card); });
         }
         public IEnumerator GameStart(IGameModeHandler gameModeHandler)
         {

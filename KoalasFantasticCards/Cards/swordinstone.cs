@@ -5,13 +5,13 @@ using ModsPlus;
 using UnboundLib;
 using KFC.MonoBehaviors;
 using UnboundLib.Networking;
+using CardChoiceSpawnUniqueCardPatch.CustomCategories;
 
 namespace KFC.Cards
 {
     public class swordinstone : SimpleCard
     {
         internal static CardInfo card = null;
-        private bool usedUp = false;
         public override CardDetails Details => new CardDetails
         {
             Title = "Sword in the stone",
@@ -24,11 +24,17 @@ namespace KFC.Cards
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
             cardInfo.allowMultiple = false;
+            cardInfo.categories = new CardCategory[] { CustomCardCategories.instance.CardCategory("CardManipulation") };
         }
         protected override void Added(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
             if (!player.data.view.IsMine) return;
             int rng = UnityEngine.Random.Range(0, 2);
+            foreach (var card in player.data.currentCards)
+            {
+                if (card == failure.card) rng = 0;
+                if (card == excaliber.card) rng = 0;
+            }
             KFC.instance.ExecuteAfterFrames(20, () =>
             {
                 NetworkingManager.RPC(typeof(swordinstone), nameof(SSRNG), player.playerID, rng);

@@ -11,6 +11,7 @@ using System;
 using System.Collections;
 using UnboundLib.GameModes;
 using Photon.Pun;
+using CardChoiceSpawnUniqueCardPatch.CustomCategories;
 
 namespace KFC.Cards
 {
@@ -52,6 +53,7 @@ namespace KFC.Cards
         };
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
+            cardInfo.categories = new CardCategory[] { CustomCardCategories.instance.CardCategory("CardManipulation") };
             cardInfo.allowMultiple = false;
             statModifiers.health = 2.5f;
             statModifiers.regen = 25;

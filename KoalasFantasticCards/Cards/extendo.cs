@@ -28,7 +28,7 @@ namespace KFC.Cards
         }
         protected override void Removed(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-            player.gameObject.GetComponentInChildren<BulletPusher>().dist -= 5;
+            if(player.gameObject.GetComponentInChildren<BulletPusher>() != null) player.gameObject.GetComponentInChildren<BulletPusher>().dist -= 5;
         }
     }
 }

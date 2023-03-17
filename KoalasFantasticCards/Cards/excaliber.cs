@@ -91,6 +91,7 @@ namespace KFC.MonoBehaviors
         {
             swordShoot += TimeHandler.deltaTime;
             swordCool.SetValues(swordShoot, gun.attackSpeed*5f/0.3f);
+
         }
         public void OnEnable()
         {
@@ -170,8 +171,6 @@ namespace KFC.MonoBehaviors
             {
                 rigid.position = new Vector2(1000, 1000);
             }
-            damagebox.damage = player.data.weaponHandler.gun.damage*55f;
-            damagebox.force = player.data.weaponHandler.gun.projectileSpeed * 1000f;
         }
     }
 }

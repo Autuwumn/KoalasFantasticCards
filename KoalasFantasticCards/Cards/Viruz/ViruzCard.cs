@@ -61,7 +61,7 @@ namespace KFC.Cards
         {
             cardInfo.allowMultiple = false;
         }
-    }
+    }   
 }
 namespace KFC.MonoBehaviors
 {
@@ -102,7 +102,8 @@ namespace KFC.MonoBehaviors
             gun.attackSpeed /= mult;
             gunAmmo.reloadTimeMultiplier /= mult;
             gun.projectileSpeed *= mult;
-            characterStats.health *= mult;
+            player.data.health *= mult;
+            player.data.health = player.data.maxHealth;
             characterStats.jump /= (mult+1)/2;
             characterStats.movementSpeed *= mult;
             block.cdMultiplier /= mult;
