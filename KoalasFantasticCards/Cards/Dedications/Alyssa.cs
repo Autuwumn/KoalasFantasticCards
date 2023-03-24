@@ -19,14 +19,14 @@ namespace KFC.Cards
             Title = "Alyssa",
             Description = "+14 Projectile Speed",
             ModName = KFC.ModIntDed,
-            Art = null,
+            Art = KFC.ArtAssets.LoadAsset<GameObject>("C_Alyssa"),
             Rarity = CardInfo.Rarity.Rare,
             Theme = CardThemeColor.CardThemeColorType.ColdBlue,
             Stats = new[]
             {
                 new CardInfoStat
                 {
-                    amount = "<#FF00FF>+14",
+                    amount = "<#FF00FF>*14",
                     positive = true,
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned,
                     stat = "Projectile Speed"

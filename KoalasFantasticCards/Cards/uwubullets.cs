@@ -1,3 +1,4 @@
+using CardChoiceSpawnUniqueCardPatch.CustomCategories;
 using HarmonyLib;
 using KFC.Cards;
 using KFC.MonoBehaviors;
@@ -44,6 +45,7 @@ namespace KFC.Cards
         };
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
+            cardInfo.categories = new CardCategory[] { CustomCardCategories.instance.CardCategory("cantEternity") };
             cardInfo.allowMultiple = false;
             gun.damage = 1.25f;
             gun.projectileColor = Color.magenta;

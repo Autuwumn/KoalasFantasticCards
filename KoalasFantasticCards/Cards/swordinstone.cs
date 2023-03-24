@@ -46,11 +46,11 @@ namespace KFC.Cards
             var player = PlayerManager.instance.GetPlayerWithID(pid);
             if(num == 1)
             {
-                ModdingUtils.Utils.Cards.instance.AddCardToPlayer(player, excaliber.card, false, "+ ", 0, 0);
+                ModdingUtils.Utils.Cards.instance.AddCardToPlayer(player, excaliber.card, false, "++", 0, 0);
                 ModdingUtils.Utils.CardBarUtils.instance.ShowImmediate(player, excaliber.card);
             } else
             {
-                ModdingUtils.Utils.Cards.instance.AddCardToPlayer(player, failure.card, false, "- ", 0, 0);
+                ModdingUtils.Utils.Cards.instance.AddCardToPlayer(player, failure.card, false, "--", 0, 0);
                 ModdingUtils.Utils.CardBarUtils.instance.ShowImmediate(player, failure.card);
             }
         }

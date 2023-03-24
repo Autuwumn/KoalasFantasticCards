@@ -80,7 +80,7 @@ namespace KFC.MonoBehaviors
         }
         public override void OnShoot(GameObject projectile)
         {
-            Destroy(projectile);
+            PhotonNetwork.Destroy(projectile);
             if (excaliberSword.boomer == false && swordShoot > gun.attackSpeed*5f/0.3f)
             {
                 excaliberSword.StartBoomer();

@@ -43,7 +43,10 @@ namespace KFC.Cards
         }
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
-            card.cardStats = null;
+            try
+            {
+                card.cardStats = null;
+            } catch { }
             cardInfo.allowMultiple = false;
             gun.spread = 0.1f;
         }

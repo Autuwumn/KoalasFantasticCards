@@ -22,6 +22,7 @@ using System.Collections;
 using System;
 using WillsWackyManagers.Utils;
 using UnboundLib.Utils;
+using CardThemeLib;
 
 namespace KFC
 {
@@ -37,7 +38,7 @@ namespace KFC
     {
         private const string ModId = "koala.koalas.fantastic.cards";
         private const string ModName = "Koalas Fantastic Cards";
-        public const string Version = "3.1.0";
+        public const string Version = "3.2.0";
         public const string ModInitials = "KFC";
         public const string ModIntDed = "KFC DediCat";
         public const string CurseInt = "KFC Curses";
@@ -55,6 +56,8 @@ namespace KFC
         public static ConfigEntry<string> goofyAh;
         public static ConfigEntry<float> sliderChange;
 
+        private static float myst = 303.5f;
+        public static object[] mysteryValue = new object[] { myst, 1 + myst / 500f, (myst / 5f) + "%", (myst / 10f) + "%" };
         private void GlobalVolAction(float val)
         {
             globalVolMute.Value = val;
@@ -98,6 +101,7 @@ namespace KFC
 
             KFC.ArtAssets = AssetUtils.LoadAssetBundleFromResources("kfccards", typeof(KFC).Assembly);
 
+            CardThemeLib.CardThemeLib.instance.CreateOrGetType("Koality", new CardThemeColor() { bgColor = new Color( 0f, 0f, 0f), targetColor = new Color(0.9f, 0f, 0.9f) });
 
 
             uwu = ArtAssets.LoadAsset<AudioClip>("uwu");
@@ -124,7 +128,17 @@ namespace KFC
             PhotonNetwork.PrefabPool.RegisterPrefab("KFC_LegoBrickB", ArtAssets.LoadAsset<GameObject>("legoBrickB"));
 
 
-            //CustomCard.BuildCard<splinter>((card) => { splinter.card = card; card.SetAbbreviation("Sp"); });
+            CustomCard.BuildCard<AncientKoala>((card) => { AncientKoala.card = card; card.SetAbbreviation("Ak"); });
+            CustomCard.BuildCard<KoalaGlory>((card) => { ModdingUtils.Utils.Cards.instance.AddHiddenCard(card); KoalaGlory.card = card; });
+            CustomCard.BuildCard<KoalaThief>((card) => { ModdingUtils.Utils.Cards.instance.AddHiddenCard(card); KoalaThief.card = card; });
+            CustomCard.BuildCard<KoalaMight>((card) => { ModdingUtils.Utils.Cards.instance.AddHiddenCard(card); KoalaMight.card = card; });
+            CustomCard.BuildCard<KoalaStats>((card) => { ModdingUtils.Utils.Cards.instance.AddHiddenCard(card); KoalaStats.card = card; });
+            CustomCard.BuildCard<MasterThief>((card) => { ModdingUtils.Utils.Cards.instance.AddHiddenCard(card); MasterThief.card = card; });
+
+            CustomCard.BuildCard<KoalaWrath>((card) => { ModdingUtils.Utils.Cards.instance.AddHiddenCard(card); KoalaWrath.card = card; });
+
+
+            CustomCard.BuildCard<splinter>((card) => { splinter.card = card; card.SetAbbreviation("Sp"); });
             CustomCard.BuildCard<indiajoenas>((card) => { indiajoenas.card = card; card.SetAbbreviation("Ij"); });
             //CustomCard.BuildCard<turret>((card) => { turret.card = card; card.SetAbbreviation("Tu"); });
             CustomCard.BuildCard<legos>((card) => { legos.card = card; card.SetAbbreviation("Le"); });
@@ -136,6 +150,7 @@ namespace KFC
             CustomCard.BuildCard<Extendo>((card) => { Extendo.card = card; card.SetAbbreviation("Ex"); });
             CustomCard.BuildCard<RedHerring>((card) => { RedHerring.card = card; card.SetAbbreviation("Rh"); });
             CustomCard.BuildCard<UncappedAmmo>((card) => { UncappedAmmo.card = card; card.SetAbbreviation("Ua"); });
+            CustomCard.BuildCard<KingOfSpeed>((card) => { KingOfSpeed.card = card; });
 
             CustomCard.BuildCard<swordinstone>((card) => { swordinstone.card = card; card.SetAbbreviation("Ss"); });
             CustomCard.BuildCard<excaliber>((card) => { excaliber.card = card; card.SetAbbreviation("Ex"); });
@@ -149,9 +164,9 @@ namespace KFC
             CustomCard.BuildCard<Rifted>((card) => { ModdingUtils.Utils.Cards.instance.AddHiddenCard(card); Rifted.card = card; });
 
             CustomCard.BuildCard<ViruzCard>((card) => { ViruzCard.card = card; });
-            CustomCard.BuildCard<Ard>((card) => { Ard.card = card; });
-            CustomCard.BuildCard<Bard>((card) => { Bard.card = card; });
-            CustomCard.BuildCard<Ccard>((card) => { Ccard.card = card; });
+            CustomCard.BuildCard<Ard>((card) => { Ard.card = card; card.SetAbbreviation("A+"); });
+            CustomCard.BuildCard<Bard>((card) => { Bard.card = card; card.SetAbbreviation("B+"); });
+            CustomCard.BuildCard<Ccard>((card) => { Ccard.card = card; card.SetAbbreviation("C+"); });
 
             CustomCard.BuildCard<VoloMori>((card) => { VoloMori.card = card; });
             CustomCard.BuildCard<ImCursed>((card) => { ImCursed.card = card; });
@@ -161,7 +176,12 @@ namespace KFC
             CustomCard.BuildCard<HaruShijun>((card) => { HaruShijun.card = card; });
             CustomCard.BuildCard<Pexiltd>((card) => { Pexiltd.card = card; });
 
-            CustomCard.BuildCard<LaggyBullets>((card) => { LaggyBullets.card = card; CurseManager.instance.RegisterCurse(card); });
+            CustomCard.BuildCard<LaggyBullets>((card) => { LaggyBullets.card = card; });
+
+            instance.ExecuteAfterFrames(6, () =>
+            {
+                CurseManager.instance.RegisterCurse(LaggyBullets.card);
+            });
         }
         public IEnumerator GameStart(IGameModeHandler gameModeHandler)
         {

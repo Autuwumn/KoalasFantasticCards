@@ -43,7 +43,7 @@ namespace KFC.Cards
         };
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
-            cardInfo.categories = new CardCategory[] { CustomCardCategories.instance.CardCategory("CardManipulation") };
+            cardInfo.categories = new CardCategory[] { CustomCardCategories.instance.CardCategory("cantEternity") };
             cardInfo.allowMultiple = false;
             block.cdMultiplier = 0.4f;
             statModifiers.sizeMultiplier = 0.4f;

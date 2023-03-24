@@ -19,11 +19,21 @@ namespace KFC.Cards
         public override CardDetails Details => new CardDetails
         {
             Title = "Uncapped Ammo",
-            Description = "+400 ammo",
+            Description = "Removes that disgusting 90 ammo cap",
             ModName = KFC.ModInitials,
             Art = KFC.ArtAssets.LoadAsset<GameObject>("C_Ammo"),
             Rarity = CardInfo.Rarity.Rare,
-            Theme = CardThemeColor.CardThemeColorType.FirepowerYellow
+            Theme = CardThemeColor.CardThemeColorType.FirepowerYellow,
+            Stats = new CardInfoStat[]
+            {
+                new CardInfoStat()
+                {
+                    amount = "+400",
+                    positive = true,
+                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned,
+                    stat = "Ammo"
+                }
+            }
         };
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
@@ -43,7 +53,7 @@ namespace KFC.MonoBehaviors
             {
                 ammo += c.gameObject.GetComponent<Gun>().ammo;
             }
-            gunAmmo.maxAmmo = ammo;
+            if(gunAmmo.maxAmmo == 90) gunAmmo.maxAmmo = ammo;
         }
     }
 }

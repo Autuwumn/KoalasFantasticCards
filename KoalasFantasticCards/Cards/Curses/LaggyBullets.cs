@@ -47,7 +47,7 @@ namespace KFC.MonoBehaviors
                 {
                     lagTime++;
                 }
-            }
+            }   
             projectile.SetActive(false);
             KFC.instance.ExecuteAfterSeconds(lagTime, () =>
             {

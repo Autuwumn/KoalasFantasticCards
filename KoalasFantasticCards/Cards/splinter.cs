@@ -10,7 +10,7 @@ using UnityEngine.SceneManagement;
 
 namespace KFC.Cards
 {
-    class splinter : CustomEffectCard<splinter_Mono>
+    class splinter : SimpleCard
     {
         internal static CardInfo card = null;
         public override CardDetails Details => new CardDetails
@@ -19,34 +19,34 @@ namespace KFC.Cards
             Description = "Shoot unstoppable iron rods with massive amounts of strength",
             ModName     = KFC.ModInitials,
             Art         = KFC.ArtAssets.LoadAsset<GameObject>("C_Splinter"),
-            Rarity      = RarityUtils.GetRarity("Divine"),
+            Rarity      = RarityUtils.GetRarity("Legendary"),
             Theme       = CardThemeColor.CardThemeColorType.TechWhite,
             Stats = new []
             {
                 new CardInfoStat
                 {
-                    amount = "+1000%",
+                    amount = "+900%",
                     positive = true,
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned,
                     stat = "Damage"
                 },
                 new CardInfoStat
                 {
-                    amount = "+1000%",
+                    amount = "+900%",
                     positive = true,
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned,
                     stat = "Bullet Speed"
                 },
                 new CardInfoStat
                 {
-                    amount = "5 sec min",
+                    amount = "+5s",
                     positive = false,
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned,
                     stat = "Reload Time"
                 },
                 new CardInfoStat
                 {
-                    amount = "1 Max",
+                    amount = "-999",
                     positive = false,
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned,
                     stat = "Ammo"
@@ -59,22 +59,15 @@ namespace KFC.Cards
             gun.damage = 10f;
             gun.projectileSpeed = 10f;
             gun.unblockable = true;
-        }
-        protected override void Added(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
-        {
-            gunAmmo.reloadTime = 5;
-            gunAmmo.maxAmmo = 1;
+            gun.ammo = -999;
+            gun.reloadTimeAdd = 5f;
         }
     }
 }
 namespace KFC.MonoBehaviors
 {
-    public class splinter_Mono : CardEffect
+    public class byebyeWall : MonoBehaviour
     {
-        private void Update()
-        {
-            if(gunAmmo.reloadTime < 5) gunAmmo.reloadTime = 5;
-            if (gunAmmo.maxAmmo > 1) gunAmmo.maxAmmo = 1;
-        }
+        
     }
 }

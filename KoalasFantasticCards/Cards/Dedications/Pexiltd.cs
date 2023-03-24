@@ -14,6 +14,7 @@ using Photon.Pun;
 using Photon.Pun.Simple;
 using static UnityEngine.ParticleSystem;
 using CardChoiceSpawnUniqueCardPatch.CustomCategories;
+using ExitGames.Client.Photon.StructWrapping;
 
 namespace KFC.Cards
 {
@@ -60,6 +61,13 @@ namespace KFC.Cards
                 },
                 new CardInfoStat
                 {
+                    amount = "+7        m",
+                    positive = true,
+                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned,
+                    stat = "Drill Distance"
+                },
+                new CardInfoStat
+                {
                     amount = "-40%",
                     positive = false,
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned,
@@ -76,7 +84,7 @@ namespace KFC.Cards
         };
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
-            cardInfo.categories = new CardCategory[] { CustomCardCategories.instance.CardCategory("CardManipulation") };
+            cardInfo.categories = new CardCategory[] { CustomCardCategories.instance.CardCategory("cantEternity") };
             cardInfo.allowMultiple = false;
             gun.damageAfterDistanceMultiplier = 1.2f;
             gun.attackSpeed = 0.33f;
@@ -88,6 +96,11 @@ namespace KFC.Cards
             gun.projectileSpeed = 1.5f;
             gun.projectileColor = Color.magenta;
             gun.damage = 0.6f;
+            var fieldInfo = typeof(UnboundLib.Utils.CardManager).GetField("defaultCards", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
+            var vanillaCards = (CardInfo[])fieldInfo.GetValue(null);
+            var cold = vanillaCards.Where((c) => c.cardName.ToLower() == "drill ammo").ToArray()[0];
+            var proj = cold.gameObject.GetComponent<Gun>().objectsToSpawn[0];
+            gun.objectsToSpawn = new ObjectsToSpawn[] { proj };
         }
     }
 }
@@ -99,7 +112,8 @@ namespace KFC.MonoBehaviors
         public float height = 20f;
         public void Update()
         {
-            var newPos = new Vector3(player.transform.position.x, player.transform.position.y + +(2.5f + height - player.transform.position.y), player.transform.position.z);
+            height = MainCam.instance.cam.sensorSize[1];
+            var newPos = new Vector3(player.transform.position.x, player.transform.position.y + (height - player.transform.position.y), player.transform.position.z);
             var cursX = MainCam.instance.cam.ScreenToWorldPoint(Input.mousePosition).x;
             var cursY = MainCam.instance.cam.ScreenToWorldPoint(Input.mousePosition).y;
             var cursPos = new Vector3(cursX, cursY, player.transform.position.z);

@@ -37,7 +37,7 @@ namespace KFC.Cards
                 },
                 new CardInfoStat
                 {
-                    amount = "<#FF8000>+250%",
+                    amount = "<#FF8000>+150%",
                     positive = true,
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned,
                     stat = "Health"
@@ -53,7 +53,7 @@ namespace KFC.Cards
         };
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
-            cardInfo.categories = new CardCategory[] { CustomCardCategories.instance.CardCategory("CardManipulation") };
+            cardInfo.categories = new CardCategory[] { CustomCardCategories.instance.CardCategory("cantEternity") };
             cardInfo.allowMultiple = false;
             statModifiers.health = 2.5f;
             statModifiers.regen = 25;
@@ -71,33 +71,33 @@ namespace KFC.MonoBehaviors
         {
             inGame = true;
             //ring = KFC.ArtAssets.LoadAsset<GameObject>("GeballionsAura");
-            //Instantiate(ring);
+            //Instantiate(ring);    
         }
-        public override IEnumerator OnPointStart(IGameModeHandler gameModeHandler)
+        public override IEnumerator OnRoundStart(IGameModeHandler gameModeHandler)
         {
             inGame = true;
-            /**
-            if(ring == null)
-            {
-                ring = KFC.ArtAssets.LoadAsset<GameObject>("GeballionsAura");
-                Instantiate(ring);
-            }
-            **/
             yield break;
         }
-        public override IEnumerator OnPointEnd(IGameModeHandler gameModeHandler)
+        public override void OnRevive()
         {
-            //Destroy(ring);
+            inGame = true;
+        }
+        public override IEnumerator OnRoundEnd(IGameModeHandler gameModeHandler)
+        {
             inGame = false;
             yield break;
         }
         public void Update()
         {
-            if(inGame)
+            if(inGame == true)
             {
                 //ring.transform.position = player.transform.position;
                 List<Player> enemyPlayers = PlayerManager.instance.players.Where((pl) => pl.playerID != player.playerID && pl.teamID != player.teamID && pl.data.health > 0).ToList();
-                if (player.data.health < 0) return;
+                if (player.data.health <= 0)
+                {
+                    inGame = false;
+                    return;
+                }
                 foreach(Player ployer in enemyPlayers)
                 {
                     if(Vector3.Distance(player.transform.position, ployer.transform.position) < 10) 

@@ -102,7 +102,7 @@ namespace KFC.MonoBehaviors
             gun.attackSpeed /= mult;
             gunAmmo.reloadTimeMultiplier /= mult;
             gun.projectileSpeed *= mult;
-            player.data.health *= mult;
+            player.data.maxHealth *= mult;
             player.data.health = player.data.maxHealth;
             characterStats.jump /= (mult+1)/2;
             characterStats.movementSpeed *= mult;
