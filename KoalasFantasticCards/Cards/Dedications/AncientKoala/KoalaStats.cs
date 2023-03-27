@@ -23,7 +23,7 @@ namespace KFC.Cards
             Title = "Stats of Koala",
             Description = "You steal 1% of others basic stats every point, basic stats listed below",
             ModName = KFC.ModIntDed,
-            Art = KFC.ArtAssets.LoadAsset<GameObject>("C_KoalasStats"),
+            Art = KFC.ArtAssets.LoadAsset<GameObject>("C_KoalaStats"),
             Rarity = RarityUtils.GetRarity("Legendary"),
             Theme = CardThemeLib.CardThemeLib.instance.CreateOrGetType("Koality"),
             Stats = new CardInfoStat[]

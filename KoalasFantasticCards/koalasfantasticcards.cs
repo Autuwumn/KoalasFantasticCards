@@ -38,7 +38,7 @@ namespace KFC
     {
         private const string ModId = "koala.koalas.fantastic.cards";
         private const string ModName = "Koalas Fantastic Cards";
-        public const string Version = "3.2.0";
+        public const string Version = "3.2.2";
         public const string ModInitials = "KFC";
         public const string ModIntDed = "KFC DediCat";
         public const string CurseInt = "KFC Curses";
@@ -56,8 +56,8 @@ namespace KFC
         public static ConfigEntry<string> goofyAh;
         public static ConfigEntry<float> sliderChange;
 
-        private static float myst = 303.5f;
-        public static object[] mysteryValue = new object[] { myst, 1 + myst / 500f, (myst / 5f) + "%", (myst / 10f) + "%" };
+        private static float myst = 312.4f;
+        public static object[] mysteryValue = new object[] { myst, 1 + myst / 500f, (myst / 5f) + "%", (myst / 15f) + "%" };
         private void GlobalVolAction(float val)
         {
             globalVolMute.Value = val;
@@ -176,12 +176,7 @@ namespace KFC
             CustomCard.BuildCard<HaruShijun>((card) => { HaruShijun.card = card; });
             CustomCard.BuildCard<Pexiltd>((card) => { Pexiltd.card = card; });
 
-            CustomCard.BuildCard<LaggyBullets>((card) => { LaggyBullets.card = card; });
-
-            instance.ExecuteAfterFrames(6, () =>
-            {
-                CurseManager.instance.RegisterCurse(LaggyBullets.card);
-            });
+            CustomCard.BuildCard<LaggyBullets>((card) => { LaggyBullets.card = card; CurseManager.instance.RegisterCurse(card);  });
         }
         public IEnumerator GameStart(IGameModeHandler gameModeHandler)
         {

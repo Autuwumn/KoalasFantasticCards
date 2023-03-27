@@ -31,7 +31,7 @@ namespace KFC.Cards
             Title = "Stealth of Koala",
             Description = "Steal a card from the rich every other pick phase",
             ModName = KFC.ModIntDed,
-            Art = KFC.ArtAssets.LoadAsset<GameObject>("C_KoalaTheft"),
+            Art = KFC.ArtAssets.LoadAsset<GameObject>("C_KoalaThief"),
             Rarity = RarityUtils.GetRarity("Legendary"),
             Theme = CardThemeLib.CardThemeLib.instance.CreateOrGetType("Koality")
         };

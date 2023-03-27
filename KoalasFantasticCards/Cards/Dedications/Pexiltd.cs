@@ -61,7 +61,7 @@ namespace KFC.Cards
                 },
                 new CardInfoStat
                 {
-                    amount = "+7        m",
+                    amount = "+7m",
                     positive = true,
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned,
                     stat = "Drill Distance"

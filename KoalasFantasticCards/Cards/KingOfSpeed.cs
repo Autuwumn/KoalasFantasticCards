@@ -23,20 +23,20 @@ namespace KFC.Cards
             Description = "Makes everybody fast, but none can match your Speed",
             ModName = KFC.ModInitials,
             Art = KFC.ArtAssets.LoadAsset<GameObject>("C_SpeedKing"),
-            Rarity = CardInfo.Rarity.Rare,
+            Rarity = RarityUtils.GetRarity("Legendary"),
             Theme = CardThemeColor.CardThemeColorType.DestructiveRed,
             Stats = new CardInfoStat[]
             {
                 new CardInfoStat
                 {
-                    amount = "+900%",
+                    amount = "*10",
                     positive = true,
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned,
                     stat = "Your Speed"
                 },
                 new CardInfoStat
                 {
-                    amount = "+400%",
+                    amount = "*5",
                     positive = true,
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned,
                     stat = "Others Speed"

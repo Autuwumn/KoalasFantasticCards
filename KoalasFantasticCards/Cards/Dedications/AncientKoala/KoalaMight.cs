@@ -78,7 +78,7 @@ namespace KFC.Cards
             gun.damage = (float)KFC.mysteryValue[1];
             gun.attackSpeed = 1f/(float)KFC.mysteryValue[1];
             gun.reloadTime = 1f/(float)KFC.mysteryValue[1];
-            gun.percentageDamage = ((float)KFC.mysteryValue[1]-1f)/2f;
+            gun.percentageDamage = ((float)KFC.mysteryValue[1]-1f)/3f;
             gun.ammo = 8;
         }
         protected override void Added(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
