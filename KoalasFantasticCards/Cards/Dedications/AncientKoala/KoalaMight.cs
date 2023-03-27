@@ -15,7 +15,7 @@ using ModdingUtils.Extensions;
 
 namespace KFC.Cards
 {
-    public class KoalaMight : CustomEffectCard<Fortune>
+    public class KoalaMight : SimpleCard
     {
         internal static CardInfo card = null;
         public override CardDetails Details => new CardDetails

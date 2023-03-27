@@ -66,8 +66,14 @@ namespace KFC.Cards
 }
 namespace KFC.MonoBehaviors
 {
-    public class byebyeWall : MonoBehaviour
+    public class byebyeWall : CardEffect
     {
-        
+        public override void OnBulletHit(GameObject projectile, HitInfo hit)
+        {
+            if (!hit.collider.gameObject.GetComponent<Player>())
+            {
+                hit.collider.gameObject.SetActive(false);
+            }
+        }
     }
 }

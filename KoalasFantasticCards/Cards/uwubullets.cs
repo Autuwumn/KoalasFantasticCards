@@ -14,7 +14,7 @@ using UnityEngine;
 
 namespace KFC.Cards
 {
-    public class uwullets : SimpleCard
+    public class uwullets : CustomEffectCard<tracers>
     {
         internal static CardInfo card = null;
         public override CardDetails Details => new CardDetails
@@ -70,6 +70,19 @@ namespace KFC.Cards
             gun.soundGun.soundShotModifierBasic.shotgunAutoLoop = owoSound;
             gun.soundGun.soundShotModifierBasic.shotgunAutoTail = owoSound;
             UnityEngine.Debug.Log("d/dx 2x^3 + 2x^2 + 2x is very mysterious");
+        }
+    }
+}
+namespace KFC.MonoBehaviors
+{
+    public class tracers : CardEffect
+    {
+        public override void OnShoot(GameObject projectile)
+        {
+            foreach(var t in projectile.GetComponentsInChildren<TrailRenderer>())
+            {
+                t.time = 1;
+            }
         }
     }
 }

@@ -23,6 +23,7 @@ using System;
 using WillsWackyManagers.Utils;
 using UnboundLib.Utils;
 using CardThemeLib;
+using KFC.MonoBehaviors;
 
 namespace KFC
 {
@@ -38,7 +39,7 @@ namespace KFC
     {
         private const string ModId = "koala.koalas.fantastic.cards";
         private const string ModName = "Koalas Fantastic Cards";
-        public const string Version = "3.2.2";
+        public const string Version = "3.2.3";
         public const string ModInitials = "KFC";
         public const string ModIntDed = "KFC DediCat";
         public const string CurseInt = "KFC Curses";
@@ -175,14 +176,27 @@ namespace KFC
             CustomCard.BuildCard<Geballion>((card) => { Geballion.card = card; });
             CustomCard.BuildCard<HaruShijun>((card) => { HaruShijun.card = card; });
             CustomCard.BuildCard<Pexiltd>((card) => { Pexiltd.card = card; });
+            CustomCard.BuildCard<Merlin>((card) => { Merlin.card = card; });
 
             CustomCard.BuildCard<LaggyBullets>((card) => { LaggyBullets.card = card; CurseManager.instance.RegisterCurse(card);  });
         }
         public IEnumerator GameStart(IGameModeHandler gameModeHandler)
         {
+            foreach(var p in PlayerManager.instance.players)
+            {
+                p.gameObject.AddComponent<KoalasBonusStats>();
+            }
             //scp_500.card.rarity = RarityUtils.GetRarity("Divine");
             yield break;
         }
         public static bool Debug = false;
+    }
+}
+
+namespace KFC.MonoBehaviors
+{
+    public class KoalasBonusStats : MonoBehaviour
+    {
+        public Vector2 shootPos;
     }
 }
