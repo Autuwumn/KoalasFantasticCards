@@ -24,6 +24,7 @@ using WillsWackyManagers.Utils;
 using UnboundLib.Utils;
 using CardThemeLib;
 using KFC.MonoBehaviors;
+using Photon.Realtime;
 
 namespace KFC
 {
@@ -31,6 +32,7 @@ namespace KFC
     [BepInDependency("pykess.rounds.plugins.moddingutils", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("root.classes.manager.reborn", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("root.rarity.lib", BepInDependency.DependencyFlags.HardDependency)]
+    [BepInDependency("root.cardtheme.lib", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("com.CrazyCoders.Rounds.RarityBundle", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("com.willis.rounds.modsplus", BepInDependency.DependencyFlags.HardDependency)]
     [BepInPlugin(ModId, ModName, Version)]
@@ -39,7 +41,7 @@ namespace KFC
     {
         private const string ModId = "koala.koalas.fantastic.cards";
         private const string ModName = "Koalas Fantastic Cards";
-        public const string Version = "3.2.3";
+        public const string Version = "3.3.1";
         public const string ModInitials = "KFC";
         public const string ModIntDed = "KFC DediCat";
         public const string CurseInt = "KFC Curses";
@@ -57,7 +59,7 @@ namespace KFC
         public static ConfigEntry<string> goofyAh;
         public static ConfigEntry<float> sliderChange;
 
-        private static float myst = 312.4f;
+        private static float myst = 331.8f;
         public static object[] mysteryValue = new object[] { myst, 1 + myst / 500f, (myst / 5f) + "%", (myst / 15f) + "%" };
         private void GlobalVolAction(float val)
         {
@@ -177,6 +179,8 @@ namespace KFC
             CustomCard.BuildCard<HaruShijun>((card) => { HaruShijun.card = card; });
             CustomCard.BuildCard<Pexiltd>((card) => { Pexiltd.card = card; });
             CustomCard.BuildCard<Merlin>((card) => { Merlin.card = card; });
+
+            CustomCard.BuildCard<RockBottom>((card) => { RockBottom.card = card; card.SetAbbreviation("Rb"); });
 
             CustomCard.BuildCard<LaggyBullets>((card) => { LaggyBullets.card = card; CurseManager.instance.RegisterCurse(card);  });
         }
