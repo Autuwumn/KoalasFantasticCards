@@ -1,14 +1,15 @@
 {
     "name": "KoalasFantasticCards",
-    "version_number": "3.2.3",
+    "version_number": "3.3.1",
     "website_url": "https://github.com/Autuwumn/KoalasFantasticCards",
     "description": "A truly fantastic collection of cards",
-    "dependencies": [
-        "willis81808-UnboundLib-3.2.6",
-	   "Pykess-ModdingUtils-0.4.6",
-	   "Root-Classes_Manager_Reborn-1.5.0",
-	   "Root-RarityLib-1.2.1",
-	   "CrazyCoders-RarityBundle-0.0.0",
-	   "willis81808-ModsPlus-1.6.2"
-    ]
+  "dependencies": [
+    "willis81808-UnboundLib-3.2.6",
+    "Pykess-ModdingUtils-0.4.6",
+    "Root-Classes_Manager_Reborn-1.5.0",
+    "Root-RarityLib-1.2.1",
+    "CrazyCoders-RarityBundle-0.0.0",
+    "willis81808-ModsPlus-1.6.2",
+    "Root-CardThemeLib-1.1.3"
+  ]
 }
