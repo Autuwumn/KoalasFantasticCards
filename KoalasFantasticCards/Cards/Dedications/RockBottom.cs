@@ -21,7 +21,7 @@ namespace KFC.Cards
             Description = "It's only up from here",
             ModName = KFC.ModIntDed,
             Art = KFC.ArtAssets.LoadAsset<GameObject>("C_RockBottom"),
-            Rarity = RarityUtils.GetRarity("Divine"),
+            Rarity = RarityUtils.GetRarity("Mythical"),
             Theme = CardThemeColor.CardThemeColorType.TechWhite,
             Stats = new[]
             {
@@ -62,7 +62,7 @@ namespace KFC.MonoBehaviors
     {
         // damage, health, speed, jump, lifesteal
         // attackspeed, reloadtime, blockcd, sizeM
-        // jumps, ammo, blocks, projectiles
+        // jumps, ammo, blocks, projectiles, bounces
         public float[] trueStatsFP = new float[] { 0, 0, 0, 0, 0 };
         public float[] trueStatsFN = new float[] { 0, 0, 0, 0 };
         public int[] trueStatsIP = new int[] { 0, 0, 0, 0, 0 };
@@ -98,7 +98,6 @@ namespace KFC.MonoBehaviors
             trueStatsIP[2] = block.additionalBlocks;
             trueStatsIP[3] = gun.numberOfProjectiles;
             trueStatsIP[4] = gun.reflects;
-
 
 
             maxStatsFP[0] = gun.damage;

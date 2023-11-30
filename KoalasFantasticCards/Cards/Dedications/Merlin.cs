@@ -47,22 +47,7 @@ namespace KFC.Cards
         {
             cardInfo.categories = new CardCategory[] { CustomCardCategories.instance.CardCategory("cantEternity") };
             cardInfo.allowMultiple = false;
-            gun.damageAfterDistanceMultiplier = 1.2f;
-            gun.attackSpeed = 0.33f;
-            gun.reloadTime = 0.33f;
-            gun.numberOfProjectiles = 4;
-            gun.ammo = 12;
-            gun.spread = 0.15f;
-            gun.gravity = 0.1f;
-            gun.projectileSpeed = 1.5f;
-            gun.damage = 0.0000001f;
-            gun.percentageDamage = 0.01f;
-            gun.reflects = 50;
-            var fieldInfo = typeof(UnboundLib.Utils.CardManager).GetField("defaultCards", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
-            var vanillaCards = (CardInfo[])fieldInfo.GetValue(null);
-            var mayhemCard = vanillaCards.Where((c) => c.cardName.ToLower() == "mayhem").ToArray()[0];
-            var proj = mayhemCard.gameObject.GetComponent<Gun>().objectsToSpawn[0];
-            gun.objectsToSpawn = new ObjectsToSpawn[] { proj };
+            gun.objectsToSpawn = new ObjectsToSpawn[] { KFC.instance.wallbounce };
         }
     }
 }
@@ -70,7 +55,7 @@ namespace KFC.Cards
 namespace KFC.MonoBehaviors
 {
     public class MerlinChaos : CardEffect
-    {
+    {/**
         public void Update()
         {
             player.data.weaponHandler.gun.damage = 0.11f;
@@ -94,12 +79,12 @@ namespace KFC.MonoBehaviors
             var cursX = MainCam.instance.cam.ScreenToWorldPoint(Input.mousePosition).x;
             var cursY = MainCam.instance.cam.ScreenToWorldPoint(Input.mousePosition).y;
             play.data.weaponHandler.gun.SetFieldValue("forceShootDir", (Vector3)targ-new Vector3(cursX, cursY, 0));
-        }
+        }**/
         public override void OnShoot(GameObject projectile)
         {
             projectile.gameObject.GetOrAddComponent<RBGullets>();
-            projectile.transform.position = player.gameObject.GetComponent<KoalasBonusStats>().shootPos;
-        }
+            //projectile.transform.position = player.gameObject.GetComponent<KoalasBonusStats>().shootPos;
+        }/**
         public override void OnBulletHit(GameObject projectile, HitInfo hit)
         {
             try
@@ -110,10 +95,7 @@ namespace KFC.MonoBehaviors
                     player.data.healthHandler.Heal(player.data.maxHealth * 0.02f);
                 }
             } catch { }
-        }
-        public override void OnBlockProjectile(GameObject projectile, Vector3 forward, Vector3 hitPosition)
-        {   
-        }
+        }**/
     }
     public class RBGullets : MonoBehaviour
     {
@@ -122,6 +104,13 @@ namespace KFC.MonoBehaviors
         float[] cols = new float[] { 1, 0, 0 };
         public void Update()
         {
+            var xRand = UnityEngine.Random.Range(0, 10);
+            var xMult = 1;
+            if (xRand <= 3) xMult = -1;
+            var yRand = UnityEngine.Random.Range(0, 10);
+            var yMult = 1;
+            if (yRand <= 3) yMult = -1;
+            gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(gameObject.GetComponent<Rigidbody2D>().velocity.x * xMult, gameObject.GetComponent<Rigidbody2D>().velocity.y * yMult);
             switch (phase)
             {
                 case 1:

@@ -52,7 +52,7 @@ namespace KFC.Cards
                         var h = c.gameObject.GetComponent<Block>();
                         if (h.cdAdd != 0 || h.cdMultiplier != 1 || h.additionalBlocks != 0)
                         {
-                            if (ModdingUtils.Utils.Cards.instance.PlayerIsAllowedCard(player, c))
+                            if (ModdingUtils.Utils.Cards.instance.PlayerIsAllowedCard(player, c) && CardManager.IsCardActive(c))
                             {
                                 blockCards.Add(c);
                             }

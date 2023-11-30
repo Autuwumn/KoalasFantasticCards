@@ -66,44 +66,46 @@ namespace KFC.Cards
         }
         protected override void Added(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-            KFC.instance.ExecuteAfterFrames(10, () =>
+
+            var angered = false;
+            foreach (var p in PlayerManager.instance.players.ToArray())
             {
-                var angered = false;
-                foreach (var p in PlayerManager.instance.players.Where((pm) => pm.playerID != player.playerID).ToArray())
+                foreach (var c in p.data.currentCards)
                 {
-                    foreach (var c in p.data.currentCards)
-                    {
-                        if (c == card) angered = true;
-                    }
+                    if (c == card) angered = true;
                 }
-                if (angered)
+            }
+            if (angered)
+            {
+                ModdingUtils.Utils.Cards.instance.RemoveAllCardsFromPlayer(player);
+                ModdingUtils.Utils.Cards.instance.AddCardToPlayer(player, KoalaWrath.card, false, "", 0, 0);
+            }
+            else
+            {
+                var gifts = new[] { KoalaGlory.card, KoalaThief.card, KoalaMight.card, KoalaStats.card };
+                var gifts2 = gifts.ToList();
+                foreach (var c in player.data.currentCards)
                 {
-                    ModdingUtils.Utils.Cards.instance.RemoveAllCardsFromPlayer(player);
-                    ModdingUtils.Utils.Cards.instance.AddCardToPlayer(player, KoalaWrath.card, false, "", 0, 0);
-                }
-                else
-                {
-                    var gifts = new[] { KoalaGlory.card, KoalaThief.card, KoalaMight.card, KoalaStats.card};
-                    var gifts2 = gifts.ToList();
-                    foreach (var c in player.data.currentCards)
+                    foreach (var g in gifts)
                     {
-                        foreach (var g in gifts)
+                        if (c == g)
                         {
-                            if (c == g)
-                            {
-                                gifts2.Remove(g);
-                            }
+                            gifts2.Remove(g);
                         }
                     }
-                    var gifts3 = gifts2.ToArray();
-                    if (gifts3.Length != 0)
-                    {
-                        var rng = UnityEngine.Random.Range(0, gifts3.Length);
-                        var index = gifts.ToList().IndexOf(gifts3[rng]);
-                        ModdingUtils.Utils.Cards.instance.AddCardToPlayer(player, gifts[index], false, "", 0, 0);
-                    }
                 }
-            });
+                var gifts3 = gifts2.ToArray();
+                if (gifts3.Length != 0)
+                {
+                    var rng = UnityEngine.Random.Range(0, gifts3.Length);
+                    var index = gifts.ToList().IndexOf(gifts3[rng]);
+                    KFC.instance.ExecuteAfterFrames(10, () =>
+                    {
+                        ModdingUtils.Utils.Cards.instance.AddCardToPlayer(player, gifts[index], false, "", 0, 0);
+                    });
+                }
+            }
+
         }
     }
 }

@@ -63,13 +63,15 @@ namespace KFC.Cards
             sc2.audioClip[0] = KFC.owo;
             SoundEvent owoSound = ScriptableObject.CreateInstance<SoundEvent>();
             owoSound.soundContainerArray[0] = sc2;
-            gun.soundGun.soundShotModifierBasic.single = uwuSound;
-            gun.soundGun.soundShotModifierBasic.singleAutoLoop = uwuSound;
-            gun.soundGun.soundShotModifierBasic.singleAutoTail = uwuSound;
-            gun.soundGun.soundShotModifierBasic.shotgun = owoSound;
-            gun.soundGun.soundShotModifierBasic.shotgunAutoLoop = owoSound;
-            gun.soundGun.soundShotModifierBasic.shotgunAutoTail = owoSound;
-            UnityEngine.Debug.Log("d/dx 2x^3 + 2x^2 + 2x is very mysterious");
+            if (KFC.cardSounds.Value == true)
+            {
+                gun.soundGun.soundShotModifierBasic.single = uwuSound;
+                gun.soundGun.soundShotModifierBasic.singleAutoLoop = uwuSound;
+                gun.soundGun.soundShotModifierBasic.singleAutoTail = uwuSound;
+                gun.soundGun.soundShotModifierBasic.shotgun = owoSound;
+                gun.soundGun.soundShotModifierBasic.shotgunAutoLoop = owoSound;
+                gun.soundGun.soundShotModifierBasic.shotgunAutoTail = owoSound;
+            }
         }
     }
 }

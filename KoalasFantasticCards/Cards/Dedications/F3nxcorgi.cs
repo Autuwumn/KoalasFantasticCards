@@ -54,15 +54,7 @@ namespace KFC.Cards
             cardInfo.categories = new CardCategory[] { CustomCardCategories.instance.CardCategory("cantEternity") };
             cardInfo.allowMultiple = false;
             gun.reflects = 9;
-            var fieldInfo = typeof(UnboundLib.Utils.CardManager).GetField("defaultCards", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
-            var vanillaCards = (CardInfo[])fieldInfo.GetValue(null);
-            foreach (var vc in vanillaCards)
-            {
-                if (vc.cardName.ToLower() == "mayhem")
-                {
-                    gun.objectsToSpawn = vc.gameObject.GetComponent<Gun>().objectsToSpawn;
-                }
-            }
+            gun.objectsToSpawn = new ObjectsToSpawn[] { KFC.instance.wallbounce };
         }
         protected override void Added(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {

@@ -42,7 +42,7 @@ namespace KFC.Cards
             var sr = gun.transform.GetChild(1).GetChild(3).gameObject.GetComponent<SpriteRenderer>();
             if(gun.spread == 0)
             {
-                gun.spread = 0.1f;
+                gun.spread = 0.2f;
             }
             base.Added(player, gun, gunAmmo, data, health, gravity, block, characterStats);
         }

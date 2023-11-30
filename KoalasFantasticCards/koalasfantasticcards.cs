@@ -25,6 +25,8 @@ using UnboundLib.Utils;
 using CardThemeLib;
 using KFC.MonoBehaviors;
 using Photon.Realtime;
+using System.Reflection;
+using System.Data;
 
 namespace KFC
 {
@@ -41,12 +43,12 @@ namespace KFC
     {
         private const string ModId = "koala.koalas.fantastic.cards";
         private const string ModName = "Koalas Fantastic Cards";
-        public const string Version = "3.3.1";
+        public const string Version = "3.5.0";
         public const string ModInitials = "KFC";
-        public const string ModIntDed = "KFC DediCat";
+        public const string ModIntDed = "KFC";
         public const string CurseInt = "KFC Curses";
 
-        internal static KFC instance;
+        public static KFC instance;
 
         public static AudioClip uwu;
         public static AudioClip honk;
@@ -55,31 +57,20 @@ namespace KFC
         
         internal static AssetBundle ArtAssets;
 
-        public static ConfigEntry<float> globalVolMute;
-        public static ConfigEntry<string> goofyAh;
-        public static ConfigEntry<float> sliderChange;
+        public static ConfigEntry<bool> cardSounds;
+
+        public ObjectsToSpawn wallbounce;
 
         private static float myst = 331.8f;
         public static object[] mysteryValue = new object[] { myst, 1 + myst / 500f, (myst / 5f) + "%", (myst / 15f) + "%" };
-        private void GlobalVolAction(float val)
+        private void HearCardsAction(bool val)
         {
-            globalVolMute.Value = val;
+            cardSounds.Value = val;
         }
-        private void GoofyAction(string val)
-        {
-            goofyAh.Value = val;
-        }
-        private void SliderChangeAction(float val)
-        {
-            sliderChange.Value = val;
-        }
-
         private void NewGUI(GameObject menu)
         {
             var fs = new[] { "Fake", "Fantastic", "Fabulous", "Fried", "Fancy", "Freaky", "Fat", "Foolish", "Funny", "False", "Fortuitus", "Fast", "Ferocious", "Fair", "Fashionable", "Finger-lickin", "Female", "Fucking Annoying", "Forbidden"};
-            MenuHandler.CreateSlider("Funny Number", menu, 50, -10f, 10f, globalVolMute.Value, GlobalVolAction, out UnityEngine.UI.Slider volumeSlider, false);
-            //MenuHandler.CreateInputField("I like salads", 50, menu, GoofyAction);
-            MenuHandler.CreateSlider("Salad", menu, 50, 1, 26, sliderChange.Value, SliderChangeAction, out UnityEngine.UI.Slider sluder, true);
+            MenuHandler.CreateToggle(cardSounds.Value, "Custom Card Sounds", menu, HearCardsAction, 50);
             
         }
         public static bool hasCard(CardInfo card, Player player)
@@ -95,12 +86,15 @@ namespace KFC
             var harmony = new Harmony(ModId);
             harmony.PatchAll();
             instance = this;
+            var fieldInfo = typeof(UnboundLib.Utils.CardManager).GetField("defaultCards", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
+            var vanillaCards = (CardInfo[])fieldInfo.GetValue(null);
+            var mayhemCard = vanillaCards.Where((c) => c.cardName.ToLower() == "mayhem").ToArray()[0];
+            var proj = mayhemCard.gameObject.GetComponent<Gun>().objectsToSpawn[0];
+            wallbounce = proj;
             var fs = new[] { "Fake", "Fantastic", "Fabulous", "Fried", "Fancy", "Freaky", "Fat", "Foolish", "Funny", "False", "Fortuitus", "Fast", "Ferocious", "Fair", "Fashionable", "Finger-lickin", "Female", "Fucking Annoying", "Forbidden" };
             var lmao = fs[UnityEngine.Random.Range(0, fs.Length)];
             Unbound.RegisterMenu("Koala's " + lmao + " Cards", () => { }, this.NewGUI, null, true);
-            globalVolMute = base.Config.Bind<float>("KFC", "card volume", 100f, "hmmm");
-            //goofyAh = base.Config.Bind<string>("KFC", "ceaser", "I like salads", "hmmm");
-            sliderChange = base.Config.Bind<float>("KFC", "Ceaser", 1f, "hmmm");
+            cardSounds = base.Config.Bind<bool>("KFC", "HearStuff", true);
 
             KFC.ArtAssets = AssetUtils.LoadAssetBundleFromResources("kfccards", typeof(KFC).Assembly);
 
@@ -154,6 +148,8 @@ namespace KFC
             CustomCard.BuildCard<RedHerring>((card) => { RedHerring.card = card; card.SetAbbreviation("Rh"); });
             CustomCard.BuildCard<UncappedAmmo>((card) => { UncappedAmmo.card = card; card.SetAbbreviation("Ua"); });
             CustomCard.BuildCard<KingOfSpeed>((card) => { KingOfSpeed.card = card; });
+            CustomCard.BuildCard<HardLightAmmun>((card) => { HardLightAmmun.card = card; });
+            CustomCard.BuildCard<Sacrafice>((card) => { Sacrafice.card = card; });
 
             CustomCard.BuildCard<swordinstone>((card) => { swordinstone.card = card; card.SetAbbreviation("Ss"); });
             CustomCard.BuildCard<excaliber>((card) => { excaliber.card = card; card.SetAbbreviation("Ex"); });
@@ -178,7 +174,7 @@ namespace KFC
             CustomCard.BuildCard<Geballion>((card) => { Geballion.card = card; });
             CustomCard.BuildCard<HaruShijun>((card) => { HaruShijun.card = card; });
             CustomCard.BuildCard<Pexiltd>((card) => { Pexiltd.card = card; });
-            CustomCard.BuildCard<Merlin>((card) => { Merlin.card = card; });
+            //CustomCard.BuildCard<Merlin>((card) => { Merlin.card = card; });
 
             CustomCard.BuildCard<RockBottom>((card) => { RockBottom.card = card; card.SetAbbreviation("Rb"); });
 
