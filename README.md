@@ -21,6 +21,11 @@
 	- 5* stats
 - Extendo Gun
 	- Bullets spawn farther away from you
+- Rock Bottom
+	- Stats under your highest from now on are set to highest
+	- Still tracks highest
+- Removal
+	- You can click on one of your cards in the cardbar to remove it and gain a curse
 
 
 - Myterious Rift Walker Class
