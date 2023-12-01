@@ -43,7 +43,7 @@ namespace KFC
     {
         private const string ModId = "koala.koalas.fantastic.cards";
         private const string ModName = "Koalas Fantastic Cards";
-        public const string Version = "3.5.0";
+        public const string Version = "3.5.1";
         public const string ModInitials = "KFC";
         public const string ModIntDed = "KFC";
         public const string CurseInt = "KFC Curses";
@@ -148,8 +148,10 @@ namespace KFC
             CustomCard.BuildCard<RedHerring>((card) => { RedHerring.card = card; card.SetAbbreviation("Rh"); });
             CustomCard.BuildCard<UncappedAmmo>((card) => { UncappedAmmo.card = card; card.SetAbbreviation("Ua"); });
             CustomCard.BuildCard<KingOfSpeed>((card) => { KingOfSpeed.card = card; });
-            CustomCard.BuildCard<HardLightAmmun>((card) => { HardLightAmmun.card = card; });
+            //CustomCard.BuildCard<HardLightAmmun>((card) => { HardLightAmmun.card = card; });
             CustomCard.BuildCard<Sacrafice>((card) => { Sacrafice.card = card; });
+
+            //CustomCard.BuildCard<Triangle>((card) => { Triangle.card = card; });
 
             CustomCard.BuildCard<swordinstone>((card) => { swordinstone.card = card; card.SetAbbreviation("Ss"); });
             CustomCard.BuildCard<excaliber>((card) => { excaliber.card = card; card.SetAbbreviation("Ex"); });
@@ -161,7 +163,7 @@ namespace KFC
             CustomCard.BuildCard<RiftMind>((card) => { RiftMind.card = card; card.SetAbbreviation("Rm"); });
             CustomCard.BuildCard<RiftSoul>((card) => { ModdingUtils.Utils.Cards.instance.AddHiddenCard(card); RiftSoul.card = card; card.SetAbbreviation("Rs"); });
             CustomCard.BuildCard<Rifted>((card) => { ModdingUtils.Utils.Cards.instance.AddHiddenCard(card); Rifted.card = card; });
-
+            
             CustomCard.BuildCard<ViruzCard>((card) => { ViruzCard.card = card; });
             CustomCard.BuildCard<Ard>((card) => { Ard.card = card; card.SetAbbreviation("A+"); });
             CustomCard.BuildCard<Bard>((card) => { Bard.card = card; card.SetAbbreviation("B+"); });
@@ -176,9 +178,11 @@ namespace KFC
             CustomCard.BuildCard<Pexiltd>((card) => { Pexiltd.card = card; });
             //CustomCard.BuildCard<Merlin>((card) => { Merlin.card = card; });
 
-            CustomCard.BuildCard<RockBottom>((card) => { RockBottom.card = card; card.SetAbbreviation("Rb"); });
+            //CustomCard.BuildCard<RockBottom>((card) => { RockBottom.card = card; card.SetAbbreviation("Rb"); });
 
-            CustomCard.BuildCard<LaggyBullets>((card) => { LaggyBullets.card = card; CurseManager.instance.RegisterCurse(card);  });
+            CustomCard.BuildCard<LaggyBullets>((card) => { LaggyBullets.card = card; CurseManager.instance.RegisterCurse(card); });
+            CustomCard.BuildCard<Shadow>((card) => { Shadow.card = card; CurseManager.instance.RegisterCurse(card); });
+            
         }
         public IEnumerator GameStart(IGameModeHandler gameModeHandler)
         {

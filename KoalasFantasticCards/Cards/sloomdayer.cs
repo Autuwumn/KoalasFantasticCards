@@ -25,11 +25,11 @@ namespace KFC.Cards
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
             cardInfo.allowMultiple = false;
-            gun.damage = 5f;
-            statModifiers.health = 5f;
-            statModifiers.movementSpeed = 3f;
-            statModifiers.regen = 25f;
-            statModifiers.lifeSteal = 5f;
+            gun.damage = 2.5f;
+            statModifiers.health = 2.5f;
+            statModifiers.movementSpeed = 1.5f;
+            statModifiers.regen = 12.5f;
+            statModifiers.lifeSteal = 2.5f;
         }
     }
 }

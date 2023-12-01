@@ -47,13 +47,21 @@ namespace KFC.MonoBehaviors
         }
         public override void OnShoot(GameObject projectile)
         {
-            if (bhole) Destroy(bhole.GetComponent<blackHole_Mono>().projec);
+            if (bhole)
+            {
+                PhotonNetwork.Destroy(bhole);
+                Destroy(bhole.GetComponent<blackHole_Mono>().projec);
+            }
             bhole = Instantiate(KFC.ArtAssets.LoadAsset<GameObject>("BlackHole"), data.hand.transform.position, Quaternion.identity);
             bhole.AddComponent<blackHole_Mono>().projec = projectile;
         }
         public override IEnumerator OnPointEnd(IGameModeHandler gameModeHandler)
         {
-            if (bhole) Destroy(bhole.GetComponent<blackHole_Mono>().projec);
+            if (bhole)
+            {
+                PhotonNetwork.Destroy(bhole);
+                Destroy(bhole.GetComponent<blackHole_Mono>().projec);
+            }
             return base.OnPointEnd(gameModeHandler);
         }
     }

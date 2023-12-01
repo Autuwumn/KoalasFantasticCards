@@ -16,7 +16,7 @@ namespace KFC.Cards
             Description = "Bullets are launched from farther away from you",
             ModName = KFC.ModInitials,
             Art = KFC.ArtAssets.LoadAsset<GameObject>("C_Extendo"),
-            Rarity = RarityUtils.GetRarity("Rare"),
+            Rarity = CardInfo.Rarity.Rare,
             Theme = CardThemeColor.CardThemeColorType.DestructiveRed
         };
         protected override void Added(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)

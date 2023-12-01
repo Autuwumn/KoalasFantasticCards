@@ -22,7 +22,7 @@ namespace KFC.Cards
             Title = "Red Herring",
             Description = "Gives between *5 and /5 to each basic stat\nDisplays stats after pickup",
             ModName = KFC.ModInitials,
-            Art = null,
+            Art = KFC.ArtAssets.LoadAsset<GameObject>("C_RedHerring"),
             Rarity = CardInfo.Rarity.Rare,
             Theme = CardThemeColor.CardThemeColorType.DestructiveRed,
             Stats = null

@@ -99,7 +99,7 @@ namespace KFC.MonoBehaviors
                 {
                     var b = CardBarUtils.instance.PlayersCardBar(player.playerID);
                     var t = b.GetFieldValue("currentCard").ToString();
-                    if (t != null)
+                    if (t != null && player.gameObject.GetComponent<PhotonView>().IsMine)
                     {
                         var a = t.Substring(0, t.IndexOf('('));
                         var card = CardManager.GetCardInfoWithName(a);

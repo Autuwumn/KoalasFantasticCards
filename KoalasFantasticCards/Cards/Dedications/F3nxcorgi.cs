@@ -21,7 +21,7 @@ namespace KFC.Cards
             Title = "F3NX_Corgi",
             Description = "<#FF8000>+9</color><#FFFFFF> Bounces",
             ModName = KFC.ModIntDed,
-            Art = null,
+            Art = KFC.ArtAssets.LoadAsset<GameObject>("C_F3nx"),
             Rarity = CardInfo.Rarity.Rare,
             Theme = CardThemeColor.CardThemeColorType.TechWhite,
             Stats = new[]
