@@ -96,6 +96,9 @@
 	  <Reference Include="UnityEngine.CoreModule">
 	    <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\ROUNDS\Rounds_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
 	  </Reference>
+	  <Reference Include="UnityEngine.InputModule">
+	    <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\ROUNDS\Rounds_Data\Managed\UnityEngine.InputModule.dll</HintPath>
+	  </Reference>
 	  <Reference Include="UnityEngine.ParticleSystemModule">
 	    <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\ROUNDS\Rounds_Data\Managed\UnityEngine.ParticleSystemModule.dll</HintPath>
 	  </Reference>
